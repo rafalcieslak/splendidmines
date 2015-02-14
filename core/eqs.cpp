@@ -1,16 +1,16 @@
 // Mines-Perfect: a minesweeper clone
 // Copyright (C) 1995-2003  Christian Czepluch
-// 
+//
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either version 2
 // of the License, or (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
@@ -115,13 +115,13 @@ Eqs::Eqs (const vector<Cell>& cells, bool (Cell::* isVar)(void) const)   // (in 
           {
             // b
             Eq*  bj = new Eq;
-     
+
             b.push_back (bj);
-     
+
             bj->id   = b.size() - 1;
             bj->cell = *k2;
             bj->val  = cells[*k2].num;
-     
+
             if (isVar == &Cell::isVisibleVar)
             {
               bj->val -= cells[*k2].num_flagged_adj;
@@ -160,7 +160,7 @@ Eqs::Eqs (const vector<Cell>& cells, bool (Cell::* isVar)(void) const)   // (in 
         num_vars_inside++;
         inner_cells.push_back(k); // wird eigentlich nur bei real benutzt
       }
-      
+
       if (cells[k].isMined())
         num_mines_remain++;
 
@@ -175,7 +175,7 @@ Eqs::Eqs (const vector<Cell>& cells, bool (Cell::* isVar)(void) const)   // (in 
         num_vars_inside++;
         inner_cells.push_back(k);
       }
-      
+
       if (cells[k].isMined() && !cells[k].is_solved)
         num_mines_remain++;
     }
@@ -365,7 +365,7 @@ void Eqs::logVal (char res) const // (ok)
 {
   if (res == 0)
   {
-    ofstream  out ("val.txt"); 
+    ofstream  out ("val.txt");
 
     // x->group->id
     for_all_vars (xi, x)
@@ -1073,7 +1073,7 @@ Found Eqs::findMoves3 (Moves& moves, int max_time,
   // clock0, diff_clock
   clock0 = clock();
   if (max_time < 0) diff_clock = -1;
-  else              diff_clock = (clock_t) max_time * CLK_TCK / 1000;
+  else              diff_clock = (clock_t) max_time * CLOCKS_PER_SEC / 1000;
 
   // options
   moves.clear();
@@ -1099,7 +1099,7 @@ Found Eqs::findMoves3 (Moves& moves, int max_time,
   }
 
   ASSERT (findMoves1 (moves) != FOUND_CONTRA);
-  
+
   if (moves.size() > 0)
   {
     if (special_move == 0)
@@ -1213,21 +1213,21 @@ Found Eqs::findMoves3 (Moves& moves, int max_time,
   }
 
   // ... inner_cells
-  if (special_move == 0 
-  &&  sol_sum_smallest == sol_sum_largest 
+  if (special_move == 0
+  &&  sol_sum_smallest == sol_sum_largest
   &&  inner_cells.size() > 0)
   {
     // alle Minen in den Randvariablen
     if (sol_sum_smallest == num_mines_remain)
       for (unsigned l = 0; l < inner_cells.size(); ++l)
         moves.push_back (Move (inner_cells[l], OPEN));
-        
+
     // Alle Innere Var. haben eine Mine
     else if (sol_sum_largest == num_mines_remain - (int)inner_cells.size())
       for (unsigned l = 0; l < inner_cells.size(); ++l)
         moves.push_back (Move (inner_cells[l], FLAGGED));
   }
-  
+
   // no_move_stage, solve_stage
   if (moves.size() == 0)
     no_move_stage = 3;
@@ -1250,7 +1250,7 @@ bool Eqs::findOneSolution (const vector<Cell>& cells, CellNrs& to_toggle,
 // out: moves      gefundene Zuege
 {
   PERF_ANA ("Eqs::findOneSolution");
-  
+
   if (max_time == 0)
     throw OutOfTime();
 
@@ -1292,7 +1292,7 @@ bool Eqs::findOneSolution (const vector<Cell>& cells, CellNrs& to_toggle,
   if (cells[to_toggle[0]].num_open_adj == 0)
   {
     num_vars_inside--;
-    
+
     if (add_mine)
       num_mines_remain--;
   }
@@ -1385,4 +1385,3 @@ bool Eqs::findOneSolution (const vector<Cell>& cells, CellNrs& to_toggle,
 
   return true;
 }
-

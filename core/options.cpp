@@ -1,16 +1,16 @@
 // Mines-Perfect: a minesweeper clone
 // Copyright (C) 1995-2003  Christian Czepluch
-// 
+//
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either version 2
 // of the License, or (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
@@ -19,7 +19,8 @@
 #include <string>
 #include <cstdlib>
 
-#ifdef LINUX
+#ifdef __linux__
+  #include <strings.h>
   #define stricmp strcasecmp
 #endif
 
@@ -51,7 +52,7 @@ const char INI_FNAME[] = "mineperf.ini";
 {
   chksum += val;
   chksum *= Glob::MOD_VAL;
-  chksum %= 10000;    
+  chksum %= 10000;
 }
 
 //******************************************************************************
@@ -151,7 +152,7 @@ const char INI_FNAME[] = "mineperf.ini";
   ASSERT (0 <= nr && nr <= 2);
 
   int chksum = 0;
-  
+
   for (unsigned i = 0; i < records[nr].name.size(); ++i)
     if (records[nr].name[i] != ' ')
       ModChecksum (chksum, tolower(records[nr].name[i]));
@@ -167,19 +168,19 @@ const char INI_FNAME[] = "mineperf.ini";
   ModChecksum (chksum, records[nr].time /  10 % 10 + '0');
   ModChecksum (chksum, records[nr].time /   1 % 10 + '0');
   ModChecksum (chksum, ' ');
-  
+
   ModChecksum (chksum, nr + '0');
   ModChecksum (chksum, ' ');
-  
+
   ModChecksum (chksum, records[nr].certified_board ? '1' : '0');
   ModChecksum (chksum, ' ');
-  
+
   { // visual studio
   for (unsigned i = 0; i < name.size(); ++i)
     if (name[i] != ' ')
       ModChecksum (chksum, tolower(name[i]));
   } // visual studio
-  
+
   return chksum;
 }
 
@@ -394,33 +395,33 @@ const char INI_FNAME[] = "mineperf.ini";
         if      (key == "Name0")  board_types.back().records[0].name = val_str;
         else if (key == "Name1")  board_types.back().records[1].name = val_str;
         else if (key == "Name2")  board_types.back().records[2].name = val_str;
-        
+
         else if (key == "Time0")  board_types.back().records[0].time = val_int;
         else if (key == "Time1")  board_types.back().records[1].time = val_int;
         else if (key == "Time2")  board_types.back().records[2].time = val_int;
-        
+
         else if (key == "Date0")  board_types.back().records[0].date = val_int;
         else if (key == "Date1")  board_types.back().records[1].date = val_int;
         else if (key == "Date2")  board_types.back().records[2].date = val_int;
-        
-        else if (key == "CertifiedBoard0")  
+
+        else if (key == "CertifiedBoard0")
           board_types.back().records[0].certified_board = (val_int == 1);
-        else if (key == "CertifiedBoard1")  
+        else if (key == "CertifiedBoard1")
           board_types.back().records[1].certified_board = (val_int == 1);
-        else if (key == "CertifiedBoard2")  
+        else if (key == "CertifiedBoard2")
           board_types.back().records[2].certified_board = (val_int == 1);
-        
+
         else if (key == "Checksum0")  chksums[0].push_back(val_int);
         else if (key == "Checksum1")  chksums[1].push_back(val_int);
         else if (key == "Checksum2")  chksums[2].push_back(val_int);
 
-        else if (key == "WasSend0")  
+        else if (key == "WasSend0")
           board_types.back().records[0].was_send = (val_int == 1);
-        else if (key == "WasSend1")  
+        else if (key == "WasSend1")
           board_types.back().records[1].was_send = (val_int == 1);
-        else if (key == "WasSend2")  
+        else if (key == "WasSend2")
           board_types.back().records[2].was_send = (val_int == 1);
-        
+
         else                          return false;
       }
     }
@@ -456,7 +457,7 @@ const char INI_FNAME[] = "mineperf.ini";
         board_types[i].records[j].reset();
 
       if (version < 140 )
-        board_types[i].records[j].time *= 1000; 
+        board_types[i].records[j].time *= 1000;
     }
   }
   } // visual studio
@@ -499,26 +500,26 @@ const char INI_FNAME[] = "mineperf.ini";
     out << "Time0="      << board_types[i].records[0].time << '\n';
     out << "Date0="      << board_types[i].records[0].date << '\n';
     out << "Name0="      << board_types[i].records[0].name << '\n';
-    out << "CertifiedBoard0=" 
-                         << (board_types[i].records[0].certified_board ? 1 : 0) 
+    out << "CertifiedBoard0="
+                         << (board_types[i].records[0].certified_board ? 1 : 0)
                          << '\n';
     out << "Checksum0="  << board_types[i].getChecksum(0,Glob::VERSION) << '\n';
     out << "WasSend0="   << board_types[i].records[0].was_send << '\n';
-    
+
     out << "Time1="      << board_types[i].records[1].time << '\n';
     out << "Date1="      << board_types[i].records[1].date << '\n';
     out << "Name1="      << board_types[i].records[1].name << '\n';
-    out << "CertifiedBoard1=" 
-                         << (board_types[i].records[1].certified_board ? 1 : 0) 
+    out << "CertifiedBoard1="
+                         << (board_types[i].records[1].certified_board ? 1 : 0)
                          << '\n';
     out << "Checksum1="  << board_types[i].getChecksum(1,Glob::VERSION) << '\n';
     out << "WasSend1="   << board_types[i].records[1].was_send << '\n';
-    
+
     out << "Time2="      << board_types[i].records[2].time << '\n';
     out << "Date2="      << board_types[i].records[2].date << '\n';
     out << "Name2="      << board_types[i].records[2].name << '\n';
-    out << "CertifiedBoard2=" 
-                         << (board_types[i].records[2].certified_board ? 1 : 0) 
+    out << "CertifiedBoard2="
+                         << (board_types[i].records[2].certified_board ? 1 : 0)
                          << '\n';
     out << "Checksum2="  << board_types[i].getChecksum(2,Glob::VERSION) << '\n';
     out << "WasSend2="   << board_types[i].records[2].was_send << '\n';
@@ -539,7 +540,7 @@ const char INI_FNAME[] = "mineperf.ini";
 //------------------------------------------------------------------------------
 {
   ASSERT (0 <= nr && nr < (int) board_types.size());
-    
+
   return &board_types[nr];
 }
 
@@ -551,7 +552,7 @@ const char INI_FNAME[] = "mineperf.ini";
   vector<string>  fnames;
   vector<string>  bmp_files;
 
-  FindFiles (bmp_files, "./boards/*.txt"); 
+  FindFiles (bmp_files, "./boards/*.txt");
 
   for (vector<string>::const_iterator f =  bmp_files.begin();
                                       f != bmp_files.end(); ++f)
@@ -644,7 +645,7 @@ const char INI_FNAME[] = "mineperf.ini";
 
       map<string,Record*>::iterator ui = user_map.find(key);
 
-      if (ui == user_map.end()) 
+      if (ui == user_map.end())
         user_map[key] = rec;
       else if (ui->second->date > rec->date)
         ui->second = rec;
@@ -700,6 +701,6 @@ const char INI_FNAME[] = "mineperf.ini";
     if (Lower (getBoardName(b)) == Lower (name))
       return b;
   }
-          
+
   return -1;
 }

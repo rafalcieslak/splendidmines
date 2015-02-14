@@ -76,7 +76,7 @@ std::string MinesPerfect::Lower (const std::string& s)
 
 //  for (string::iterator i = s2.begin(); i != s2.end(); ++i)
 //    *i = tolower(*i);
-  transform (s2.begin(), s2.end(), s2.begin(), tolower);
+  transform (s2.begin(), s2.end(), s2.begin(), ::tolower);
 
   return s2;
 }
@@ -85,13 +85,10 @@ std::string MinesPerfect::Lower (const std::string& s)
 AssertException::AssertException (const char* fname, int linenr)
 //------------------------------------------------------------------------------
 {
-  char buf[20];
-  itoa (linenr, buf, 10);
-
   string fname2 = fname;
   for (string::iterator i = fname2.begin(); i != fname2.end(); ++i)
     if (*i == '\\')
       *i = '/';
 
-  text = string("Exception in file ") + fname2 + " in line " + buf;
+  text = string("Exception in file ") + fname2 + " in line " + std::to_string(linenr);
 }

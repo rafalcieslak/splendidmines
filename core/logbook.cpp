@@ -1,16 +1,16 @@
 // Mines-Perfect: a minesweeper clone
 // Copyright (C) 1995-2003  Christian Czepluch
-// 
+//
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either version 2
 // of the License, or (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
@@ -30,6 +30,7 @@ using namespace std;
 
 #include "logbook.h"
 #include "api.h"  // Exception
+#include "../globaldefs.h"
 
 namespace MinesPerfect // wegen Compiler
 {
@@ -229,7 +230,7 @@ void Logbook::read (const string& fname)
   {
     // str1, str2, str3
     string str1, str2, str3;
-    
+
     in >> str1;
     if (str1.size() == 0)
       break;
@@ -240,20 +241,20 @@ void Logbook::read (const string& fname)
     if (in.eof())
       throw LogException ("Logbook::read(2): Number of entries must be a "
                           "multiple of three.");
-      
+
     in >> str3;
- 
+
     // log
     if (str1.find_first_not_of ("0123456789!") != string::npos)
       throw LogException (string("Logbook::read: '") + str1 + "' must not contains non-digits.");
-   
+
     log.time1 = atoi (str1.c_str());
     log.name = str2;
 
     if (log.name == LOG_BOARD_NAME)
-    {    
+    {
       log.val = options.findBoardNr(str3);
-          
+
       if (log.val == -1)
         throw LogException (string("Logbook::read: board '") + str3 + "' not found!");
     }
@@ -261,8 +262,8 @@ void Logbook::read (const string& fname)
     {
       if (str3.find_first_not_of ("-0123456789!") != string::npos)
         throw LogException (string("Logbook::read: '") + str3 + "' must not contains non-digits.");
-        
-      log.val = atoi (str3.c_str());   
+
+      log.val = atoi (str3.c_str());
     }
 
     // log auswerten
@@ -324,12 +325,12 @@ void Logbook::operator>> (Log& log)
   play_index++;
 
   Log  log2 = log;
-  
+
   if (Glob::log_on)
     log.write (AUTO_LOG_FNAME); // auto_log protokolliert auch das Lesen.
 
   // Zeit synchronisieren
-  clock0 = clock() - log.time1 * CLK_TCK / 1000;
+  clock0 = clock() - log.time1 * CLOCKS_PER_SEC / 1000;
 }
 
 //******************************************************************************
@@ -359,9 +360,9 @@ void Logbook::operator<< (const Log& log)
     // Waehrend eines Abspielens duerfen nur Out-Of-Time und Start-Timer
     // Logs geschrieben werden!
     if (!logs[play_index].isComputerLog())
-      throw LogException (string("logs[].name == '") + logs[play_index].name 
+      throw LogException (string("logs[].name == '") + logs[play_index].name
                          + "' invalid!");
-    // Kommen Computerlogs in der selben Reihenfolge?  
+    // Kommen Computerlogs in der selben Reihenfolge?
     else if (logs[play_index].name != log2.name)
       throw LogException ("Logbook::operator<<: log.name invalid");
     else if (logs[play_index].val != log2.val)
@@ -370,7 +371,7 @@ void Logbook::operator<< (const Log& log)
     // Log schreiben
     if (Glob::log_on)
     {
-      log2.time1 = logs[play_index].time1; 
+      log2.time1 = logs[play_index].time1;
       log2.write (AUTO_LOG_FNAME);
     }
 
@@ -382,16 +383,16 @@ void Logbook::operator<< (const Log& log)
     if (log.name == LOG_START_TIMER)
     {
       // Hier wird die clock0-Zeit vom Timer uebergeben
-      log2.time1 = (log.val - clock0) * 1000 / CLK_TCK;
+      log2.time1 = (log.val - clock0) * 1000 / CLOCKS_PER_SEC;
       log2.val    = 0; // Wert steckt schon in time1
     }
     else
     {
-      log2.time1 = (clock() - clock0) * 1000 / CLK_TCK;
+      log2.time1 = (clock() - clock0) * 1000 / CLOCKS_PER_SEC;
     }
 
     if (log2.time1 == 0)
-      log2.time1 = 1;   // 0 wird für die Startoptionen benutzt
+      log2.time1 = 1;   // 0 wird fï¿½r die Startoptionen benutzt
 
     if (Glob::log_on)
       log2.write (AUTO_LOG_FNAME);
@@ -416,10 +417,10 @@ bool Logbook::undo(bool all)
     throw LogException ("Logbook::undo(): invalid cur_index");
   else if (play_index != cur_index)
     throw LogException ("Logbook::undo(): invalid play_index");
-    
+
   // first_valid
   bool     found_valid = false;
-  unsigned first_valid; 
+  unsigned first_valid;
 
   for (first_valid = 0; first_valid < cur_index; ++first_valid)
   {
@@ -432,7 +433,7 @@ bool Logbook::undo(bool all)
 
   // Keinen gueltigen -> Ende
   if (!found_valid)
-    return false; 
+    return false;
 
 /*
   // Keine gueltigen Logs -> nur auto.log akt.
@@ -445,15 +446,15 @@ bool Logbook::undo(bool all)
       for (unsigned i = 0; i < cur_index && logs[i].isComputerLog(); ++i)
         logs[i].write(AUTO_LOG_FNAME);
     }
-    
+
     // setze cur_index
     cur_index  = i;
     play_index = cur_index; // play_index mitanpassen
-    
+
     return false; // keine wesentliche Aenderung
   }
 */
-  if (cur_index < logs.size() 
+  if (cur_index < logs.size()
   && (!logs[cur_index].valid || logs[cur_index].isComputerLog()))
     throw LogException ("Logbook::undo(): invalid log!");
 
@@ -465,22 +466,22 @@ bool Logbook::undo(bool all)
   else
   {
     while (true)
-    { 
+    {
       if (cur_index == first_valid)
       {
         if (Glob::log_on)
           writeOptions (AUTO_LOG_FNAME);
         return false;
       }
-         
+
       --cur_index;
       play_index = cur_index; // mitanpassen
-      
+
       if (logs[cur_index].valid && !logs[cur_index].isComputerLog())
         break;
     }
   }
-    
+
   return true;
 }
 
@@ -501,20 +502,20 @@ bool Logbook::redo (Log& log)
   // gesetzt
   if (cur_index == 0)
   {
-    while (cur_index < logs.size() 
+    while (cur_index < logs.size()
            && (!logs[cur_index].valid || logs[cur_index].isComputerLog()))
     {
       if (!logs[cur_index].isComputerLog() && Glob::log_on)
         logs[cur_index].write(AUTO_LOG_FNAME);
-        
+
       ++cur_index;
       play_index = cur_index; // play_index mitaktualisieren
     }
-    
+
     if (cur_index >= logs.size())
       return false; // kein redo durchgefuehrt
   }
-*/  
+*/
   log = logs[cur_index];
 
   // cur_index muss immer auf einem gueltigen stehen
@@ -522,21 +523,21 @@ bool Logbook::redo (Log& log)
     throw LogException (string("Logbook::redo(): invalid log! (") + log.name + "')");
 
   // cur_index wird auf den naechsten freien oder den naechsten gueltigen Log
-  // gesetzt.  
+  // gesetzt.
   do
   {
     if (!logs[cur_index].isComputerLog() && Glob::log_on)
       logs[cur_index].write(AUTO_LOG_FNAME);
-      
+
     ++cur_index;
     play_index = cur_index; // play_index mitaktualisieren
   }
-  while (cur_index < logs.size() 
+  while (cur_index < logs.size()
          && (!logs[cur_index].valid || log.isComputerLog()));
-  
+
   // Zeit synchronisieren
-  clock0 = clock() - log.time1 * CLK_TCK / 1000;
-  
+  clock0 = clock() - log.time1 * CLOCKS_PER_SEC / 1000;
+
   return true;
 }
 
@@ -547,7 +548,7 @@ bool Logbook::invalidateLast()
   if (play_index < 1 || logs.size() < play_index)
     return false;
 
-  logs[play_index - 1].valid = false;    
+  logs[play_index - 1].valid = false;
   return true;
 }
 
@@ -590,41 +591,41 @@ string Logbook::exportStr () const
   //--- stat. Informationen ---
 
   //
-  text =  itoa (Glob::VERSION, buf, 10); 
+  text =  std::to_string (Glob::VERSION);
   text += sep;
-  text += itoa (_VARIANT_, buf, 10);
+  text += std::to_string (_VARIANT_);
   text += sep;
   text += options.getBoardName();
   text += sep;
-  text += itoa (options.getLevelNr(), buf, 10);
+  text += std::to_string (options.getLevelNr());
   text += sep;
 
   if (options.getLevelNr() == USER_DEFINED)
   {
-    text += itoa (options.getHeight(), buf, 10);
+    text += std::to_string (options.getHeight());
     text += sep;
-    text += itoa (options.getWidth(), buf, 10);
+    text += std::to_string (options.getWidth());
     text += sep;
-    text += itoa (options.getDeep(), buf, 10);
+    text += std::to_string (options.getDeep());
     text += sep;
-    text += itoa (options.getNumMines(), buf, 10);
+    text += std::to_string (options.getNumMines());
     text += sep;
-    text += itoa (options.getNumWholes(), buf, 10);
+    text += std::to_string (options.getNumWholes());
     text += sep;
   }
 
-  text += itoa (options.getModus(), buf, 10);
+  text += std::to_string (options.getModus());
   text += sep;
-  text += itoa (options.getMurphysLaw(), buf, 10);
+  text += std::to_string (options.getMurphysLaw());
   text += sep;
 
-  text += itoa (options.getAutoStage(), buf, 10);
+  text += std::to_string (options.getAutoStage());
   text += sep;
-  text += itoa (options.getMaxStage(), buf, 10);
+  text += std::to_string (options.getMaxStage());
   text += sep;
-  text += itoa (options.getShowMines(), buf, 10);
+  text += std::to_string (options.getShowMines());
   text += sep;
-  text += itoa (rand_seq, buf, 10);
+  text += std::to_string (rand_seq);
   text += sep;
 
   //--- dyn. Informationen ---
@@ -651,7 +652,7 @@ string Logbook::exportStr () const
 
   text += Int6ToChar (num_bits);
 
-  // 
+  //
   int word      = 0; // 32-Bit (max. 31 werden benutzt)
   int word_bits = 0; // belegte Bits von word
 
@@ -721,7 +722,7 @@ void Logbook::importStr (const string& text)
   unsigned i = 0;
 
   // Version + Variante
-  int version = atoi (parts[i++].c_str()); 
+  int version = atoi (parts[i++].c_str());
 //  int variant = atoi (parts[i++].c_str()); // wird nicht gebraucht
   i++; // variant ueberspringen
 
@@ -757,7 +758,7 @@ void Logbook::importStr (const string& text)
     if (parts.size() != 11)
       throw LogException (func_name + "number of parts != 11.");
   }
-  
+
   if (!options.setLevel(lvl))
     throw LogException (func_name + "error at setLevel().");
 

@@ -1,16 +1,16 @@
 // Mines-Perfect: a minesweeper clone
 // Copyright (C) 1995-2003  Christian Czepluch
-// 
+//
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either version 2
 // of the License, or (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
@@ -23,6 +23,7 @@
 #include <set>
 #include <time.h>
 #include <stdio.h>
+#include <cstring>
 
 #ifdef VISUAL_CPP
   #include <iostream> // visual studio (cerr)
@@ -109,8 +110,8 @@ Perf::~Perf()
   clock_t   clock1 = clock();
 
   ASSERT (clock0 != -1);
-  
-  ulong     total  = (ulong) ((1000000.0 / CLK_TCK) * (clock1 - clock0));
+
+  ulong     total  = (ulong) ((1000000.0 / CLOCKS_PER_SEC) * (clock1 - clock0));
   int       fnr    = call_stack.back();
   call_stack.pop_back();
   if (functions[fnr].rec_level == 1)
@@ -135,7 +136,7 @@ Perf::~Perf()
     const string  title_self_aver  = "self/call";
     const string  title_total_aver = "total/call";
     ulong         max_name_len     = title_name.length();
-    ulong         max_percent      = max (title_percent.length(), 4U);
+    ulong         max_percent      = max (title_percent.length(), 4ul);
     ulong         max_total        = title_total.length();
     ulong         max_self         = title_self.length();
     ulong         max_num_calls    = title_num_calls.length();
@@ -170,8 +171,8 @@ Perf::~Perf()
 
       ulong  set_size = name_set.size();
       name_set.insert (functions[i].name);
-      if (set_size == name_set.size())
-        cerr << "'" << functions[i].name << "' ist doppelt" << endl;
+      //if (set_size == name_set.size())
+      //  cerr << "'" << functions[i].name << "' ist doppelt" << endl;
     }
     total_time = max_total;
 
@@ -227,4 +228,3 @@ Perf::~Perf()
     } // visual studio
   }
 }
-
