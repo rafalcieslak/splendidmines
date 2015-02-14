@@ -76,15 +76,15 @@ void GameCtrl::initCtrls()
 //------------------------------------------------------------------------------
 {
   // Init Bevels                 (parent, thickness, raised);
-  m_win_bevel       = new BevelCtrl (this,             1, true); 
-  m_win_head_bevel  = new BevelCtrl (m_win_bevel,      2, true); 
+  m_win_bevel       = new BevelCtrl (this,             1, true);
+  m_win_head_bevel  = new BevelCtrl (m_win_bevel,      2, true);
   m_win_body_bevel  = new BevelCtrl (m_win_bevel,      2, true);
   m_left_lcd_bevel  = new BevelCtrl (m_win_head_bevel, 1, false);
   m_left_sep_bevel  = new BevelCtrl (m_win_head_bevel, 1, false);
   m_smiley_bevel    = new BevelCtrl (m_win_head_bevel, 1, false);
   m_right_sep_bevel = new BevelCtrl (m_win_head_bevel, 1, false);
   m_right_lcd_bevel = new BevelCtrl (m_win_head_bevel, 1, false);
-  
+
   // restlichen Controls
   m_left_lcd      = new LcdCtrl    (m_left_lcd_bevel);
   m_smiley_button = new SmileyCtrl (m_smiley_bevel, this);
@@ -104,9 +104,9 @@ void GameCtrl::alignCtrlInBevel(Ctrl* ctrl, const BevelCtrl* bvl, int h, int v,
 // h > 100  =>  (h-100) ist abs. Abstand von rechts
 // sonst    =>  h ist rel. Pos. in Prozent
 // v genauso
-// 
+//
 // Diese Funktion liegt nicht in Bevel::, weil eine allg. Ctrl geaendert wird.
-// Diese Funktion liegt nicht in Ctrl::, weil sie zu speziell ist und ein 
+// Diese Funktion liegt nicht in Ctrl::, weil sie zu speziell ist und ein
 // Bevel nichts zu suchen hat in einer Methode von Ctrl::.
 // Eine allg. Anordnungsbeschreibung mit Spacern etc. waere overkill fuer
 // dieses Programm. Es waere auch nicht so einfach zu realisieren, da man
@@ -131,7 +131,7 @@ void GameCtrl::alignCtrlInBevel(Ctrl* ctrl, const BevelCtrl* bvl, int h, int v,
     pos.y = top_max - (v-100);
   else
     pos.y = top_min + (top_max - top_min) * v / 100;
-    
+
   ctrl->setRelPos(pos, recursive);
 }
 
@@ -143,7 +143,7 @@ void GameCtrl::alignCtrls()
   const int     dist  = 6;
 
   // sizes:
-  
+
   // head-ctrl-sizes
   m_left_lcd_bevel->setContSize  (m_left_lcd->getSize());
   m_smiley_bevel->setContSize    (m_smiley_button->getSize());
@@ -165,7 +165,7 @@ void GameCtrl::alignCtrls()
   // win_head-size
   m_win_head_bevel->setContSize (Point (head_width + 2 * thick,
                                         m_left_lcd_bevel->getSize().y + 2 * dist));
-                                     
+
   // win_body-size
   m_win_body_bevel->setContSize (Point (head_width + 2 * thick,
                                         m_board_ctrl->getSize().y + 2 * thick));
@@ -174,18 +174,18 @@ void GameCtrl::alignCtrls()
   m_win_bevel->setContSize (Point (m_win_head_bevel->getSize().x,
                                  m_win_head_bevel->getSize().y + m_win_body_bevel->getSize().y));
 
-  // posistions + sizes of sep_bevels : 
-  
+  // posistions + sizes of sep_bevels :
+
   // game pos
   setRelPos(Point(0,0));
-  
+
   // win pos
   m_win_bevel->setRelPos(Point(0,0));
 
   alignCtrlInBevel (m_win_head_bevel, m_win_bevel, 50,   0); // center/top
   alignCtrlInBevel (m_win_body_bevel, m_win_bevel, 50, 100); // center/buttom
 
-  // smiley pos 
+  // smiley pos
   alignCtrlInBevel (m_smiley_bevel, m_win_head_bevel, 50, 50);
   m_smiley_button->setRelPos (m_smiley_bevel->getContPos());
 
@@ -194,9 +194,9 @@ void GameCtrl::alignCtrls()
   m_left_lcd->setRelPos (m_left_lcd_bevel->getContPos());
 
   // m_left_sep_bevel pos + size
-  m_left_sep_bevel->setRelPos (m_left_lcd_bevel->getRelPos() 
+  m_left_sep_bevel->setRelPos (m_left_lcd_bevel->getRelPos()
                              + Point(m_left_lcd_bevel->getSize().x + thick, 0));
-  m_left_sep_bevel->setSize (Point (m_smiley_bevel->getRelPos().x 
+  m_left_sep_bevel->setSize (Point (m_smiley_bevel->getRelPos().x
                                       - m_left_sep_bevel->getRelPos().x - thick,
                                     m_left_lcd_bevel->getSize().y));
 
@@ -205,10 +205,10 @@ void GameCtrl::alignCtrls()
   m_right_lcd->setRelPos (m_right_lcd_bevel->getContPos());
 
   // m_right_sep_bevel pos + size
-  m_right_sep_bevel->setRelPos (Point (m_smiley_bevel->getRelPos().x 
+  m_right_sep_bevel->setRelPos (Point (m_smiley_bevel->getRelPos().x
                                           + m_smiley_bevel->getSize().x + thick,
                                         m_right_lcd_bevel->getRelPos().y));
-  m_right_sep_bevel->setSize (Point (m_right_lcd_bevel->getRelPos().x 
+  m_right_sep_bevel->setSize (Point (m_right_lcd_bevel->getRelPos().x
                                      - m_right_sep_bevel->getRelPos().x - thick,
                                      m_right_lcd_bevel->getSize().y));
 
@@ -222,7 +222,7 @@ void GameCtrl::showTime (int secs)
 {
   if (secs >= MAX_SECS)
     secs = MAX_SECS;
-  
+
   int  val;
   int  ew = MAX_SECS;
   int  lvl = m_options->getLevelNr();
@@ -346,7 +346,7 @@ void GameCtrl::newGame (int change_level)
       m_board_ctrl->setBoard(m_options->getBoardNr()); // act. Bitmaps
     else
       m_board_ctrl->setLevel(m_options->getLevel());
-    
+
     alignCtrls();
     WinSetSize(m_win_bevel->getSize());
     setDirty(); // wegen WinSetSize
@@ -379,7 +379,7 @@ void GameCtrl::newGame (int change_level)
     clock_t clock0 = m_timer->start();
     *m_logbook << Log(LOG_START_TIMER, clock0);
   }
-  
+
   // cells
   m_board_ctrl->setCellsDirty();
   m_board_ctrl->actAllCells();
@@ -550,7 +550,7 @@ void GameCtrl::changeSolveAuto (StageNr stage)
     {
       setHelpUsed();
     }
-/* ???    
+/* ???
     else if (m_board == 0 || m_board->getState() == BEFORE
          &&  m_options->getMaxStage() == MAX_STAGE)
     {
@@ -581,7 +581,7 @@ void GameCtrl::changeMaxStage (StageNr stage)
     {
       setHelpUsed();
     }
-/* ???      
+/* ???
     else if (m_board == 0 || m_board->getState() == BEFORE
          &&  m_options->getAutoStage() == 0)
       showTime (0);
@@ -619,21 +619,21 @@ void GameCtrl::playLog (const Log& log, bool with_sound)
 {
   if (!log.valid)
     return;
-    
+
   if (log.name == LOG_FLAG)
   {
     if (!m_board->flagCells (log.val, m_board_ctrl->m_changed_cells, *m_logbook))
       m_logbook->invalidateLast();
-    
-    if (with_sound)  
+
+    if (with_sound)
       m_flag_sound->play();
   }
   else if (log.name == LOG_OPEN)
   {
     if (!m_board->openCells (log.val, m_board_ctrl->m_changed_cells, *m_logbook))
       m_logbook->invalidateLast();
-  
-    if (with_sound)    
+
+    if (with_sound)
       m_open_sound->play();
   }
   else if (log.name == LOG_MODUS)
@@ -707,7 +707,7 @@ void GameCtrl::playLog (const Log& log, bool with_sound)
         m_board_ctrl->m_changed_cells.push_back (k);
     }
   }
-  else 
+  else
   {
     ASSERT (log.name == LOG_START_TIMER);
   }
@@ -717,7 +717,7 @@ void GameCtrl::playLog (const Log& log, bool with_sound)
 void GameCtrl::playLogbook()
 //------------------------------------------------------------------------------
 {
-  // Während der Wiederholung den Sound abstellen
+  // Wï¿½hrend der Wiederholung den Sound abstellen
   bool  with_sound_old = m_options->getWithSound();
   m_options->setWithSound (false);
 
@@ -762,7 +762,7 @@ void GameCtrl::load (const string& fname)
   // load
   try
   {
-    if (fname.find(',') == string::npos) 
+    if (fname.find(',') == string::npos)
     {
       m_logbook->read (fname);
     }
@@ -838,4 +838,3 @@ void GameCtrl::redo()
 
   m_cur_cell = -1;
 }
-

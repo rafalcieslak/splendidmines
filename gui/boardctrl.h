@@ -1,11 +1,11 @@
 // Mines-Perfect: a minesweeper clone
 // Copyright (C) 1995-2003  Christian Czepluch
-// 
+//
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either version 2
 // of the License, or (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -54,7 +54,7 @@ class BoardCtrl : public Ctrl
   private: //-------------------------------------------------------------------
 
     void initStatic();
-    
+
     CellNr       m_cur_cell;            // -> state
     set<CellNr>  m_cur_cells;
 
@@ -79,7 +79,7 @@ class BoardCtrl : public Ctrl
     vector<Bitmap*>  m_cell_hintopen_bmps;
     vector<Bitmap*>  m_cell_error_bmps;
     vector<Bitmap*>  m_frame_bmps;
-    
+
     vector<BitmapCtrl*>  m_frame_ctrls;
     vector<BitmapCtrl*>  m_cell_ctrls;
     vector<BitmapCtrl*>  m_symbol_ctrls;
@@ -95,4 +95,3 @@ class BoardCtrl : public Ctrl
 } // namespace MinesPerfect
 
 #endif
-

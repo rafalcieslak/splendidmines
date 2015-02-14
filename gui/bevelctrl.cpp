@@ -1,11 +1,11 @@
 // Mines-Perfect: a minesweeper clone
 // Copyright (C) 1995-2003  Christian Czepluch
-// 
+//
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either version 2
 // of the License, or (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -29,31 +29,30 @@ BevelCtrl::BevelCtrl (Ctrl* parent, int thickness, bool raised) : Ctrl(parent)
 }
 
 //******************************************************************************
-Point BevelCtrl::getContPos() 
+Point BevelCtrl::getContPos()
 //------------------------------------------------------------------------------
-{ 
-  return  Point(m_thickness, m_thickness); 
+{
+  return  Point(m_thickness, m_thickness);
 }
 
 //******************************************************************************
-Point BevelCtrl::getContSize() 
+Point BevelCtrl::getContSize()
 //------------------------------------------------------------------------------
-{ 
-  return  getSize() - 2 * Point(m_thickness, m_thickness); 
+{
+  return  getSize() - 2 * Point(m_thickness, m_thickness);
 }
 
 //******************************************************************************
-void BevelCtrl::setContSize (Point s) 
+void BevelCtrl::setContSize (Point s)
 //------------------------------------------------------------------------------
 {
   setSize (s + 2 * Point(m_thickness, m_thickness));
 }
 
 //******************************************************************************
-void BevelCtrl::draw() 
+void BevelCtrl::draw()
 //------------------------------------------------------------------------------
 {
   Rect  rect (getAbsPos(), getSize());
   WinDrawBevel (rect, m_thickness, m_raised);
 }
-

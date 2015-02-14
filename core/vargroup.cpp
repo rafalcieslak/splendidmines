@@ -1,16 +1,16 @@
 // Mines-Perfect: a minesweeper clone
 // Copyright (C) 1995-2003  Christian Czepluch
-// 
+//
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either version 2
 // of the License, or (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
@@ -147,7 +147,7 @@ void VarGroup::printDyn (void) // (ok)
       {
           for (unsigned s = 0; s < (*xi)->sols[d].size(); s++)
             out << (*xi)->sols[d][s];
-      
+
         out << setw ((*xi)->val_max - (*xi)->val_min + 1 - (*xi)->sols[d].size())
             << "";
         if (xi + 1 != eqs->x.end())
@@ -190,7 +190,7 @@ void VarGroup::printDyn (void) // (ok)
   {
     for (CombSums::const_iterator ci =  (*gr)->comb_sums.begin();
                                   ci != (*gr)->comb_sums.end(); ci++)
-    {  
+    {
       out << "group[" << (*gr)->id << "].comb_sums[" << (*ci).first << "] = { ";
       for_all_sums (s, (*ci).second)
       {
@@ -241,7 +241,7 @@ void VarGroup::printDyn (void) // (ok)
 
   out << " }\n\n";
 
-  // group->id               
+  // group->id
   out << "group->id             =   ";
 
   { // visual studio
@@ -332,7 +332,7 @@ void VarGroup::split (const VarGroup&  part1, // (ok)
                     VarGroup&        part2,
                     VarGroup&        part3)
 //------------------------------------------------------------------------------
-// in:  part1   
+// in:  part1
 // out: part2   alle Variablen, die direkt an part1 liegen
 //      part3   restlichen Variablen
 {
@@ -431,15 +431,15 @@ void VarGroup::buildTree (void) // (ok)
 // Diese werden anschliessend rekursiv weiter zerlegt.
 //
 // Algorithmus: 1. Suche eine Variable mit moeglichst wenigen Nachbarn
-//                 (das erhoeht die Chance, dass es sich um eine 
+//                 (das erhoeht die Chance, dass es sich um eine
 //                  'Randvariable' handelt).
 //              2. Bestimme alle Variablen, die direkt an der ersten liegen.
 //                 (Das ist die oben genannt Menge von Variablen, da die
 //                  restlichen Variablen nicht mit der ersten zusammenhaengen
 //                  koennen. (->VarGroup::split))
-//              3. Erweitere nun iterativ die Menge mit der ersten Variablen um 
-//                 eine moeglichst 'gute' zusaetzliche Variable. Bewerte nun 
-//                 alle diese moeglichen Zerlegungen und bestimme davon die       
+//              3. Erweitere nun iterativ die Menge mit der ersten Variablen um
+//                 eine moeglichst 'gute' zusaetzliche Variable. Bewerte nun
+//                 alle diese moeglichen Zerlegungen und bestimme davon die
 //                 beste.
 
 // Fehler: best_xi darf in part1 nicht schon vorkommen (ok)
@@ -882,7 +882,7 @@ bool VarGroup::solve (SolSums* permit_sums) // (ok)
       }
       // 2. Durchgang
       else if (child1->cur_sums->size() > 0 && child2->cur_sums->size() > 0)
-      // Die cur_sums.sizes koennen Null wenn diese Kombination nichts 
+      // Die cur_sums.sizes koennen Null wenn diese Kombination nichts
       // zur Loesung beigetragen hat
       {
         int      min_child1, min_child2, min_permit2;
@@ -943,4 +943,3 @@ bool VarGroup::solve (SolSums* permit_sums) // (ok)
 
   return found_sol;
 }
-

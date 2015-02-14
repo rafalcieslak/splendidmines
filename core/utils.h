@@ -108,10 +108,10 @@ public:
   int getTop()    const { return top; }
   int getWidth()  const { return width; }
   int getHeight() const { return height;}
-  
+
   void setPos   (const Point& p) { left = p.x; top = p.y; }
   bool contains (const Point& p);
-  
+
 private:
 
   int left;

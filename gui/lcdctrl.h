@@ -34,7 +34,7 @@ class LcdCtrl : public Ctrl // 3 - Ziffrige Lcd anzeige
 
     void   draw();
     void   setVal (int val);
-    
+
   private:
 
     int   m_val;
@@ -47,4 +47,3 @@ class LcdCtrl : public Ctrl // 3 - Ziffrige Lcd anzeige
 } // namespace MinesPerfect
 
 #endif
-

@@ -1,11 +1,11 @@
 // Mines-Perfect: a minesweeper clone
 // Copyright (C) 1995-2003  Christian Czepluch
-// 
+//
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either version 2
 // of the License, or (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -37,24 +37,22 @@ class ButtonCtrl : public Ctrl
     void setUpBitmap   (const Bitmap* b) { setElem(m_symb_up_bmp, b); }
     void setDownBitmap (const Bitmap* b) { setElem(m_symb_down_bmp, b); }
     void setPushed     (bool pushed)     { setElem(m_is_pushed, pushed); }
-  
+
     void onMouseEvent(const MouseEvent& ev);
-    
+
     virtual void onClick() = 0; // need not virtual (only for testing)
-  
+
   protected:
 
     const Bitmap*  m_symb_up_bmp;
     const Bitmap*  m_symb_down_bmp;
-  
+
     static Bitmap*  s_button_up_bmp;
     static Bitmap*  s_button_down_bmp;
-    
+
   private:
-  
+
     bool m_is_pushed;
 };
 
 #endif
-
-

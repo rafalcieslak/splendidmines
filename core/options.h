@@ -1,16 +1,16 @@
 // Mines-Perfect: a minesweeper clone
 // Copyright (C) 1995-2003  Christian Czepluch
-// 
+//
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either version 2
 // of the License, or (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
@@ -117,7 +117,7 @@ typedef int  StageNr;
 
   BoardType() : enabled(true) {;}
   BoardType (string n) : name(n), enabled(true) {;}
-  
+
   void deleteRecord(int nr) { if (0 <= nr && nr <= 2) records[nr].reset(); }
   void deleteRecords();
   int  getChecksum(int nr, int version);
@@ -155,7 +155,7 @@ public:
   void   deleteRecords();
   void   addBoard (string n) { board_types.push_back (BoardType (n)); }
   void   actBoards();
-  
+
   // set
   bool   setBoardNr    (BoardNr nr);
   bool   setLevel      (const Level& lvl);
@@ -169,7 +169,7 @@ public:
   void   setMaxStage   (StageNr  stg) { max_stage   = stg; }
   void   setShowMines  (bool  show)   { show_mines  = show; }
   void   addUser       (const User& new_user) { users.push_back(new_user); }
-  void   renameUser    (const string& old_name, const string& new_name); 
+  void   renameUser    (const string& old_name, const string& new_name);
   void   setRecord     (int nr, string name, int time, bool certified_board);
 
 
@@ -196,7 +196,7 @@ public:
   User        getUser(int nr) const { return users[nr]; }
 
   const string  getBoardName (BoardNr nr) const;
-  
+
   BoardType*  getBoardType (BoardNr nr);
 
   const string  getBoardName (void) const {

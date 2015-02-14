@@ -37,7 +37,7 @@ class Options;
 struct MouseEvent
 {
   enum Type { LEFT_DOWN, LEFT_UP, RIGHT_DOWN, RIGHT_UP,  MOVE };
-  
+
   Type   m_type;
   Point  m_pos;
   Point  m_prev_pos;
@@ -75,7 +75,7 @@ public:
   virtual Point  getSize() const = 0;
   virtual bool   isTransparent() const = 0; // wird im Moment nicht verwendet
   virtual bool   pointIsTransparent (const Point& p) const = 0;
-  
+
   virtual ~Bitmap() { };
 };
 
@@ -90,7 +90,7 @@ class Sound
 public:
   virtual void play() = 0;
   virtual bool isOk() = 0;
-  
+
   virtual ~Sound() { }
 };
 
@@ -130,4 +130,3 @@ bool StartBrowser (const string& protokoll, const string& fname);
 } // namespace MinesPerfect
 
 #endif
-

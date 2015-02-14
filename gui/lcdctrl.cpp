@@ -50,7 +50,7 @@ LcdCtrl::LcdCtrl(Ctrl* parent)
     for (i = 0; i < sizeof (s_digit_bmps) / sizeof (*s_digit_bmps); i++)
       ASSERT (s_minus_bmp->getSize() == s_digit_bmps[i]->getSize());
   }
-  
+
   setSize(Point(3 * s_minus_bmp->getSize().x, s_minus_bmp->getSize().y));
 }
 
@@ -84,6 +84,3 @@ void LcdCtrl::draw()
   WinDrawBitmap (s_digit_bmps[abs(m_val) % 10],
                  Point (pos.x + 2 * getSize().x / 3, pos.y));
 }
-
-
-

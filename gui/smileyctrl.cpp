@@ -30,7 +30,7 @@ Bitmap* SmileyCtrl::s_smiley_norm_bmp     = 0;
 Bitmap* SmileyCtrl::s_smiley_ooh_bmp      = 0;
 Bitmap* SmileyCtrl::s_smiley_worry_bmp    = 0;
 Bitmap* SmileyCtrl::s_smiley_sunglass_bmp = 0;
-  
+
 //******************************************************************************
 SmileyCtrl::SmileyCtrl (Ctrl* parent, GameCtrl* game)
 //------------------------------------------------------------------------------
@@ -83,7 +83,7 @@ void SmileyCtrl::act()
 
   setUpBitmap   (new_smiley);
   setDownBitmap (s_smiley_ooh_bmp);
-  
+
 //  ButtonCtrl::draw();
 }
 
@@ -93,5 +93,3 @@ void SmileyCtrl::onClick()
 {
   m_game->newGame();
 }
-
-

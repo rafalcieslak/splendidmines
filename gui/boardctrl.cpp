@@ -46,7 +46,7 @@ void BoardCtrl::initStatic()
   s_board_triangle_bmp = CreateBitmap ("board", "Triangle");
   s_board_hexagon_bmp  = CreateBitmap ("board", "Hexagon" );
   s_board_grid3d_bmp   = CreateBitmap ("board", "3d-Grid" );
-  
+
   // Symb-Bitmaps
   s_symb_flag_bmp  = CreateBitmap ("symbol", "flag" );
   s_symb_quest_bmp = CreateBitmap ("symbol", "quest");
@@ -61,7 +61,7 @@ void BoardCtrl::initStatic()
      sprintf (buf, "%i", i);
      s_symb_digit_bmps[i] = CreateBitmap ("symbol", buf);
   }
-  
+
   // Symb-Bitmaps: check size
   ASSERT (s_symb_flag_bmp->getSize() == s_symb_quest_bmp->getSize());
   ASSERT (s_symb_flag_bmp->getSize() == s_symb_mine_bmp->getSize());
@@ -96,7 +96,7 @@ void BoardCtrl::setLevel (const Level& lvl) // oder so aehnlich
   Board*  board = m_game->getBoard();
 
   //  frames
-  m_frame_bmps.clear();  
+  m_frame_bmps.clear();
   for (const FrameType* ft = board->getFirstFrameType(); ft != 0;
                         ft = board->getNextFrameType())
   {
@@ -111,11 +111,11 @@ void BoardCtrl::setLevel (const Level& lvl) // oder so aehnlich
   {
     BitmapCtrl*  bc = new BitmapCtrl(this);
     m_frame_ctrls.push_back(bc);
-    
+
     bc->setRelPos (Point (fr->x, fr->y));
     bc->setBitmap (m_frame_bmps[fr->type_nr]);
   }
-  
+
   // cells
   m_cell_close_bmps.clear();
   m_cell_open_bmps.clear();
@@ -144,7 +144,7 @@ void BoardCtrl::setLevel (const Level& lvl) // oder so aehnlich
     rect.setPos (pos + 4 * delta);
     m_cell_error_bmps.push_back (CreateBitmap (m_source_bmp, rect));
   }
-  
+
   m_cell_ctrls.clear();
   m_symbol_ctrls.clear();
   for (CellNr k = 0; k < (CellNr) m_game->m_board->getNumCells(); k++)
@@ -155,17 +155,17 @@ void BoardCtrl::setLevel (const Level& lvl) // oder so aehnlich
 
     Point cp (board->getCellX(k), board->getCellY(k));
     cc->setRelPos(cp);
-    
-    // symbol_ctrl    
+
+    // symbol_ctrl
     BitmapCtrl*  sc = new BitmapCtrl(cc);
     m_symbol_ctrls.push_back(sc);
-    
+
     const CellType*  ct = board->getTypeOfCell(k);
     Point            sp (ct->centre_x - s_symb_mine_bmp->getSize().x / 2,
                          ct->centre_y - s_symb_mine_bmp->getSize().y / 2);
     sc->setRelPos(sp);
   }
-  
+
   m_changed_cells.clear();
 }
 
@@ -207,7 +207,7 @@ void BoardCtrl::actCell (CellNr k)
     else
       cell_bmp = m_cell_close_bmps[ct_nr];
   }
-  
+
   // act. symb
   if (m_game->m_options->getShowMines())
   {
@@ -260,7 +260,7 @@ void BoardCtrl::actCell (CellNr k)
     }
   }
 
-  // Falls neue Symbol leer ist oder altes Symbol uebermalt werden soll, 
+  // Falls neue Symbol leer ist oder altes Symbol uebermalt werden soll,
   // muss Zelle neu gemalt werden, da Sybole transparent sind.
   // (sollte nicht verallgemeinert werden, also nicht board_ctrl neu malen,
   //  falls sich die Zelle aendert)
@@ -339,7 +339,7 @@ void BoardCtrl::actCurCells (bool left_is_down, bool right_is_down)
 {
   Board*  board = m_game->getBoard();
 
-  // m_cur_cells freigeben  
+  // m_cur_cells freigeben
   set<CellNr>::const_iterator i; // visual studio
   for (i = m_cur_cells.begin(); i != m_cur_cells.end(); ++i)
   {
@@ -366,8 +366,8 @@ void BoardCtrl::actCurCells (bool left_is_down, bool right_is_down)
         m_cur_cells.insert(m_cur_cell);
     }
   }
-  
-  // neue m_cur_cells setzen  
+
+  // neue m_cur_cells setzen
   for (i = m_cur_cells.begin(); i != m_cur_cells.end(); ++i)
   {
     Bitmap* bmp = m_cell_open_bmps[board->getCellTypeNr(*i)];
@@ -401,7 +401,7 @@ void BoardCtrl::onMouseEvent (const MouseEvent& ev)
 
     m_cur_cell = getCellAtPoint(ev.m_pos - getAbsPos());
     actCurCells(ev.m_left_is_down, ev.m_right_is_down);
-    
+
     return;
   }
 
@@ -475,17 +475,15 @@ void BoardCtrl::onMouseEvent (const MouseEvent& ev)
     // gezeichnet werden und damit ein haessliches Flackern verursachen
     // werden beide Mengen vereinigt und in m_changed_cells gepackt.
     sort (m_changed_cells.begin(), m_changed_cells.end());
-    
+
     CellNrs diff;
-    
+
     sort (m_changed_cells.begin(), m_changed_cells.end());
-    set_difference (m_cur_cells.begin(),     m_cur_cells.end(), 
-                    m_changed_cells.begin(), m_changed_cells.end(), 
+    set_difference (m_cur_cells.begin(),     m_cur_cells.end(),
+                    m_changed_cells.begin(), m_changed_cells.end(),
                     back_inserter(diff));
-    copy (diff.begin(), diff.end(), back_inserter(m_changed_cells));                
-      
+    copy (diff.begin(), diff.end(), back_inserter(m_changed_cells));
+
     m_cur_cells.clear();
   }
 }
-
-

@@ -1,16 +1,16 @@
 // Mines-Perfect: a minesweeper clone
 // Copyright (C) 1995-2003  Christian Czepluch
-// 
+//
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either version 2
 // of the License, or (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
@@ -107,28 +107,28 @@ struct Log
   Log (string n, int v)
   : time1(0), name(n), val(v), valid(true) {;}
 
-  bool isComputerLog() const { return name == LOG_OUT_OF_TIME 
+  bool isComputerLog() const { return name == LOG_OUT_OF_TIME
                                       || name == LOG_START_TIMER; }
   void write (const string& fname) const;
 
 
   enum Type // 2-Bit
-  { 
-    TYPE_END = 0, TYPE_OPEN, TYPE_FLAG, TYPE_MISC 
+  {
+    TYPE_END = 0, TYPE_OPEN, TYPE_FLAG, TYPE_MISC
   };
 
   enum Misc // 6-Bit
-  { 
-    MISC_MODUS       = 0, 
+  {
+    MISC_MODUS       = 0,
     MISC_MURPHYS_LAW = MISC_MODUS       + 5, // 0- 4
     MISC_HINT        = MISC_MURPHYS_LAW + 2, // 0 - 1
-    MISC_SOLVE_ONE,   
-    MISC_SOLVE_ALL, 
+    MISC_SOLVE_ONE,
+    MISC_SOLVE_ALL,
     MISC_AUTO_STAGE  = MISC_SOLVE_ALL   + 4, // 1 - 3
     MISC_MAX_STAGE   = MISC_AUTO_STAGE  + 4, // 0 - 3
     MISC_SHOW_MINES  = MISC_MAX_STAGE   + 4, // 0 - 3
     MISC_OUT_OF_TIME = MISC_SHOW_MINES  + 2, // 0 - 1
-    MISC_START_TIMER 
+    MISC_START_TIMER
   };
 
   int  toInt() const;

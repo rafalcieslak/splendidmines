@@ -117,7 +117,7 @@ class GameCtrl : public Ctrl
     void playLog (const Log& log, bool with_sound);
     void playLogbook();
     void setHelpUsed();
-    void alignCtrlInBevel (Ctrl* ctrl, const BevelCtrl* bvl, int h, int v, 
+    void alignCtrlInBevel (Ctrl* ctrl, const BevelCtrl* bvl, int h, int v,
                            bool recursive = false);
 };
 
@@ -125,4 +125,3 @@ class GameCtrl : public Ctrl
 } // namespace MinesPerfect
 
 #endif
-
