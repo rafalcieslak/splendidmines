@@ -169,7 +169,7 @@ Perf::~Perf()
                          / functions[i].num_calls);
       }
 
-      ulong  set_size = name_set.size();
+      //ulong  set_size = name_set.size();
       name_set.insert (functions[i].name);
       //if (set_size == name_set.size())
       //  cerr << "'" << functions[i].name << "' ist doppelt" << endl;

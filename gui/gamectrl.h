@@ -108,7 +108,7 @@ class GameCtrl : public Ctrl
     BevelCtrl*   m_right_sep_bevel;
     BevelCtrl*   m_right_lcd_bevel;
     BevelCtrl*   m_win_body_bevel;
-    bool         m_bevels_dirty;
+    //bool         m_bevels_dirty;
 
     // elementfunctionen
     void initSound();

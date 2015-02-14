@@ -584,7 +584,6 @@ string Logbook::exportStr () const
 {
   string    func_name = "Logbook::exportStr: ";
   string    text;
-  char      buf[20]; // fuer atoi
   unsigned  i;
   char      sep = ',';
 
