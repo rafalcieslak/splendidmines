@@ -92,8 +92,6 @@ Timer* CreateTimer();
 //******************************************************************************
 // Functions
 //------------------------------------------------------------------------------
-void Init();
-
 void WinSetSize    (const Point& sz);                    // alternativ
 void WinDrawBitmap (const Bitmap* bmp, const Point& p);  //     "
 void WinDrawBevel  (const Rect& rect, int thickness, bool raised);
