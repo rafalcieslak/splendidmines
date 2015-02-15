@@ -1,6 +1,8 @@
 #include <gtkmm.h>
 #include <iostream>
 #include "mainwindow.h"
+#include "../core/options.h"
+#include "../gui/gamectrl.h"
 
 MainWindow* pMainWindow = nullptr;
 
@@ -29,9 +31,12 @@ int main(int argc, char** argv){
     return 1;
   }
 
+  MinesPerfect::Options* options = new MinesPerfect::Options();
+
   refBuilder->get_widget_derived("gtkWindowMain", pMainWindow);
   if(pMainWindow)
   {
+    pMainWindow->game = new MinesPerfect::GameCtrl(options);
     Gtk::Main::run(*pMainWindow);
   }
 
