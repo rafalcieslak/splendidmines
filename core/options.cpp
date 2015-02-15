@@ -552,14 +552,14 @@ const char INI_FNAME[] = "mineperf.ini";
   vector<string>  fnames;
   vector<string>  bmp_files;
 
-  FindFiles (bmp_files, "./boards/*.txt");
+  API::FindFiles (bmp_files, "./boards/*.txt");
 
   for (vector<string>::const_iterator f =  bmp_files.begin();
                                       f != bmp_files.end(); ++f)
   {
     string  fname = f->substr (0, f->find ("."));
 
-    if (!FileExist (string("./boards/") + fname + ".bmp"))
+    if (!API::FileExist (string("./boards/") + fname + ".bmp"))
       continue;
 
     fnames.push_back (fname);

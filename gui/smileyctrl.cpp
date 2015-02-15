@@ -21,15 +21,15 @@
 using namespace std;
 using namespace MinesPerfect;
 
-Bitmap* SmileyCtrl::s_smiley_happy_bmp    = 0;
-Bitmap* SmileyCtrl::s_smiley_1eye_bmp     = 0;
-Bitmap* SmileyCtrl::s_smiley_2eyes_bmp    = 0;
-Bitmap* SmileyCtrl::s_smiley_3eyes_bmp    = 0;
-Bitmap* SmileyCtrl::s_smiley_4eyes_bmp    = 0;
-Bitmap* SmileyCtrl::s_smiley_norm_bmp     = 0;
-Bitmap* SmileyCtrl::s_smiley_ooh_bmp      = 0;
-Bitmap* SmileyCtrl::s_smiley_worry_bmp    = 0;
-Bitmap* SmileyCtrl::s_smiley_sunglass_bmp = 0;
+API::Bitmap* SmileyCtrl::s_smiley_happy_bmp    = 0;
+API::Bitmap* SmileyCtrl::s_smiley_1eye_bmp     = 0;
+API::Bitmap* SmileyCtrl::s_smiley_2eyes_bmp    = 0;
+API::Bitmap* SmileyCtrl::s_smiley_3eyes_bmp    = 0;
+API::Bitmap* SmileyCtrl::s_smiley_4eyes_bmp    = 0;
+API::Bitmap* SmileyCtrl::s_smiley_norm_bmp     = 0;
+API::Bitmap* SmileyCtrl::s_smiley_ooh_bmp      = 0;
+API::Bitmap* SmileyCtrl::s_smiley_worry_bmp    = 0;
+API::Bitmap* SmileyCtrl::s_smiley_sunglass_bmp = 0;
 
 //******************************************************************************
 SmileyCtrl::SmileyCtrl (Ctrl* parent, GameCtrl* game)
@@ -40,15 +40,15 @@ SmileyCtrl::SmileyCtrl (Ctrl* parent, GameCtrl* game)
   if (s_smiley_happy_bmp == 0)
   {
     // Bitmaps initialisieren
-    s_smiley_happy_bmp    = CreateBitmap ("smiley", "happy"    );
-    s_smiley_1eye_bmp     = CreateBitmap ("smiley", "1eye"     );
-    s_smiley_2eyes_bmp    = CreateBitmap ("smiley", "2eyes"    );
-    s_smiley_3eyes_bmp    = CreateBitmap ("smiley", "3eyes"    );
-    s_smiley_4eyes_bmp    = CreateBitmap ("smiley", "4eyes"    );
-    s_smiley_norm_bmp     = CreateBitmap ("smiley", "norm"     );
-    s_smiley_ooh_bmp      = CreateBitmap ("smiley", "ooh"      );
-    s_smiley_worry_bmp    = CreateBitmap ("smiley", "worry"    );
-    s_smiley_sunglass_bmp = CreateBitmap ("smiley", "sunglass" );
+    s_smiley_happy_bmp    = API::CreateBitmap ("smiley", "happy"    );
+    s_smiley_1eye_bmp     = API::CreateBitmap ("smiley", "1eye"     );
+    s_smiley_2eyes_bmp    = API::CreateBitmap ("smiley", "2eyes"    );
+    s_smiley_3eyes_bmp    = API::CreateBitmap ("smiley", "3eyes"    );
+    s_smiley_4eyes_bmp    = API::CreateBitmap ("smiley", "4eyes"    );
+    s_smiley_norm_bmp     = API::CreateBitmap ("smiley", "norm"     );
+    s_smiley_ooh_bmp      = API::CreateBitmap ("smiley", "ooh"      );
+    s_smiley_worry_bmp    = API::CreateBitmap ("smiley", "worry"    );
+    s_smiley_sunglass_bmp = API::CreateBitmap ("smiley", "sunglass" );
 
     // check size
     ASSERT (s_smiley_happy_bmp->getSize() == s_smiley_1eye_bmp->getSize());
@@ -67,7 +67,7 @@ void SmileyCtrl::act()
 //------------------------------------------------------------------------------
 {
   // new_smiley
-  Bitmap*  new_smiley = 0;
+  API::Bitmap*  new_smiley = 0;
 
   if      (m_game->m_board->gameIsWon())           new_smiley = s_smiley_sunglass_bmp;
   else if (m_game->m_board->gameIsLost())          new_smiley = s_smiley_worry_bmp;

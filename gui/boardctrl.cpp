@@ -25,33 +25,33 @@ using namespace MinesPerfect;
 
 const CellNr  INVALID_CELL = -1;
 
-Bitmap*   BoardCtrl::s_board_square_bmp   = 0;
-Bitmap*   BoardCtrl::s_board_triangle_bmp = 0;
-Bitmap*   BoardCtrl::s_board_hexagon_bmp  = 0;
-Bitmap*   BoardCtrl::s_board_grid3d_bmp   = 0;
+API::Bitmap*   BoardCtrl::s_board_square_bmp   = 0;
+API::Bitmap*   BoardCtrl::s_board_triangle_bmp = 0;
+API::Bitmap*   BoardCtrl::s_board_hexagon_bmp  = 0;
+API::Bitmap*   BoardCtrl::s_board_grid3d_bmp   = 0;
 
-Bitmap*   BoardCtrl::s_symb_flag_bmp  = 0;
-Bitmap*   BoardCtrl::s_symb_quest_bmp = 0;
-Bitmap*   BoardCtrl::s_symb_mine_bmp  = 0;
-Bitmap*   BoardCtrl::s_symb_cross_bmp = 0;
-Bitmap*   BoardCtrl::s_symb_zero_bmp  = 0;
-Bitmap*   BoardCtrl::s_symb_digit_bmps[28] = { 0 };
+API::Bitmap*   BoardCtrl::s_symb_flag_bmp  = 0;
+API::Bitmap*   BoardCtrl::s_symb_quest_bmp = 0;
+API::Bitmap*   BoardCtrl::s_symb_mine_bmp  = 0;
+API::Bitmap*   BoardCtrl::s_symb_cross_bmp = 0;
+API::Bitmap*   BoardCtrl::s_symb_zero_bmp  = 0;
+API::Bitmap*   BoardCtrl::s_symb_digit_bmps[28] = { 0 };
 
 //******************************************************************************
 void BoardCtrl::initStatic()
 //------------------------------------------------------------------------------
 {
   // Board-Bitmaps
-  s_board_square_bmp   = CreateBitmap ("board", "Square"  );
-  s_board_triangle_bmp = CreateBitmap ("board", "Triangle");
-  s_board_hexagon_bmp  = CreateBitmap ("board", "Hexagon" );
-  s_board_grid3d_bmp   = CreateBitmap ("board", "3d-Grid" );
+  s_board_square_bmp   = API::CreateBitmap ("board", "Square"  );
+  s_board_triangle_bmp = API::CreateBitmap ("board", "Triangle");
+  s_board_hexagon_bmp  = API::CreateBitmap ("board", "Hexagon" );
+  s_board_grid3d_bmp   = API::CreateBitmap ("board", "3d-Grid" );
 
   // Symb-Bitmaps
-  s_symb_flag_bmp  = CreateBitmap ("symbol", "flag" );
-  s_symb_quest_bmp = CreateBitmap ("symbol", "quest");
-  s_symb_mine_bmp  = CreateBitmap ("symbol", "mine" );
-  s_symb_cross_bmp = CreateBitmap ("symbol", "cross");
+  s_symb_flag_bmp  = API::CreateBitmap ("symbol", "flag" );
+  s_symb_quest_bmp = API::CreateBitmap ("symbol", "quest");
+  s_symb_mine_bmp  = API::CreateBitmap ("symbol", "mine" );
+  s_symb_cross_bmp = API::CreateBitmap ("symbol", "cross");
 
   char      buf[20];
   unsigned  i; // visual studio
@@ -59,7 +59,7 @@ void BoardCtrl::initStatic()
   for (i = 0; i < sizeof (s_symb_digit_bmps) / sizeof (*s_symb_digit_bmps); i++)
   {
      sprintf (buf, "%i", i);
-     s_symb_digit_bmps[i] = CreateBitmap ("symbol", buf);
+     s_symb_digit_bmps[i] = API::CreateBitmap ("symbol", buf);
   }
 
   // Symb-Bitmaps: check size
@@ -102,7 +102,7 @@ void BoardCtrl::setLevel (const Level& lvl) // oder so aehnlich
   {
     Rect  rect (ft->x, ft->y, ft->width, ft->height);
 
-    m_frame_bmps.push_back (CreateBitmap (m_source_bmp, rect));
+    m_frame_bmps.push_back (API::CreateBitmap (m_source_bmp, rect));
   }
 
   m_frame_ctrls.clear();
@@ -130,19 +130,19 @@ void BoardCtrl::setLevel (const Level& lvl) // oder so aehnlich
     Rect  rect  (ct->x, ct->y, ct->width, ct->height);
 
     rect.setPos (pos + 0 * delta);
-    m_cell_close_bmps.push_back (CreateBitmap (m_source_bmp, rect));
+    m_cell_close_bmps.push_back (API::CreateBitmap (m_source_bmp, rect));
 
     rect.setPos (pos + 1 * delta);
-    m_cell_open_bmps.push_back (CreateBitmap (m_source_bmp, rect));
+    m_cell_open_bmps.push_back (API::CreateBitmap (m_source_bmp, rect));
 
     rect.setPos (pos + 2 * delta);
-    m_cell_hintclose_bmps.push_back (CreateBitmap (m_source_bmp, rect));
+    m_cell_hintclose_bmps.push_back (API::CreateBitmap (m_source_bmp, rect));
 
     rect.setPos (pos + 3 * delta);
-    m_cell_hintopen_bmps.push_back (CreateBitmap (m_source_bmp, rect));
+    m_cell_hintopen_bmps.push_back (API::CreateBitmap (m_source_bmp, rect));
 
     rect.setPos (pos + 4 * delta);
-    m_cell_error_bmps.push_back (CreateBitmap (m_source_bmp, rect));
+    m_cell_error_bmps.push_back (API::CreateBitmap (m_source_bmp, rect));
   }
 
   m_cell_ctrls.clear();
@@ -175,7 +175,7 @@ void BoardCtrl::setBoard (BoardNr nr)// setSourceBmp
 {
   // m_source_bmp
   delete m_source_bmp;
-  m_source_bmp = CreateBitmap ("board", m_game->m_options->getBoardName (nr));
+  m_source_bmp = API::CreateBitmap ("board", m_game->m_options->getBoardName (nr));
 
   setLevel(m_game->m_options->getLevel());
 }
@@ -185,8 +185,8 @@ void BoardCtrl::actCell (CellNr k)
 //------------------------------------------------------------------------------
 // Diese Funktion aktualisiert die Zelle und das dazugehoerige Symbol
 {
-  Bitmap*  cell_bmp = 0;
-  Bitmap*  symb_bmp = 0;
+  API::Bitmap*  cell_bmp = 0;
+  API::Bitmap*  symb_bmp = 0;
   Board*   board = m_game->getBoard();
   int      ct_nr = board->getCellTypeNr(k);
 
@@ -370,7 +370,7 @@ void BoardCtrl::actCurCells (bool left_is_down, bool right_is_down)
   // neue m_cur_cells setzen
   for (i = m_cur_cells.begin(); i != m_cur_cells.end(); ++i)
   {
-    Bitmap* bmp = m_cell_open_bmps[board->getCellTypeNr(*i)];
+    API::Bitmap* bmp = m_cell_open_bmps[board->getCellTypeNr(*i)];
     m_cell_ctrls[*i]->setBitmap(bmp);
   }
 }
@@ -384,7 +384,7 @@ void BoardCtrl::setCellsDirty()
 }
 
 //******************************************************************************
-void BoardCtrl::onMouseEvent (const MouseEvent& ev)
+void BoardCtrl::onMouseEvent (const API::MouseEvent& ev)
 //------------------------------------------------------------------------------
 // p: in BoardCtrl Koordinaten
 {
@@ -393,7 +393,7 @@ void BoardCtrl::onMouseEvent (const MouseEvent& ev)
   if (board->gameOver())
     return;
 
-  if (ev.m_type == MouseEvent::MOVE
+  if (ev.m_type == API::MouseEvent::MOVE
   || (ev.m_left_is_down && ev.m_right_is_down))
   {
     if (!ev.m_left_is_down)
@@ -407,13 +407,13 @@ void BoardCtrl::onMouseEvent (const MouseEvent& ev)
 
   m_cur_cell = getCellAtPoint (ev.m_pos - getAbsPos());
 
-  if (ev.m_type == MouseEvent::LEFT_DOWN || ev.m_type == MouseEvent::RIGHT_DOWN)
+  if (ev.m_type == API::MouseEvent::LEFT_DOWN || ev.m_type == API::MouseEvent::RIGHT_DOWN)
   {
     board->delHints (m_changed_cells);
 
     if (m_cur_cell != INVALID_CELL)
     {
-      if (ev.m_type == MouseEvent::LEFT_DOWN)
+      if (ev.m_type == API::MouseEvent::LEFT_DOWN)
       {
         actCurCells(ev.m_left_is_down, ev.m_right_is_down);
       }
@@ -442,7 +442,7 @@ void BoardCtrl::onMouseEvent (const MouseEvent& ev)
   {
     // actCurCells(ev.m_left_is_down, ev.m_right_is_down);
 
-    if (ev.m_type == MouseEvent::LEFT_UP && m_cur_cell != INVALID_CELL
+    if (ev.m_type == API::MouseEvent::LEFT_UP && m_cur_cell != INVALID_CELL
     &&  !ev.m_right_is_down)
     {
       bool was_in_play_mode = (board->getState() == PLAY);

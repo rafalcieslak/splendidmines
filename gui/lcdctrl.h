@@ -39,8 +39,8 @@ class LcdCtrl : public Ctrl // 3 - Ziffrige Lcd anzeige
 
     int   m_val;
 
-    static Bitmap*  s_minus_bmp;
-    static Bitmap*  s_digit_bmps[10];
+    static API::Bitmap*  s_minus_bmp;
+    static API::Bitmap*  s_digit_bmps[10];
 };
 
 

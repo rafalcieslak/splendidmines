@@ -29,14 +29,14 @@ class BitmapCtrl : public Ctrl
 //------------------------------------------------------------------------------
 {
   public:
-    BitmapCtrl(Ctrl* parent, const Bitmap* bmp = 0) : Ctrl(parent), m_bmp(bmp) {;}
+    BitmapCtrl(Ctrl* parent, const API::Bitmap* bmp = 0) : Ctrl(parent), m_bmp(bmp) {;}
 
-    const Bitmap* getBitmap() { return m_bmp; }
-    void          setBitmap (const Bitmap* bmp);
+    const API::Bitmap* getBitmap() { return m_bmp; }
+    void          setBitmap (const API::Bitmap* bmp);
     virtual void  draw();
 
   private:
-    const Bitmap*  m_bmp;
+    const API::Bitmap*  m_bmp;
 };
 
 #endif

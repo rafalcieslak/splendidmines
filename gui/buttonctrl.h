@@ -34,21 +34,21 @@ class ButtonCtrl : public Ctrl
 
     bool isPushed() const { return m_is_pushed; }
     virtual void draw();
-    void setUpBitmap   (const Bitmap* b) { setElem(m_symb_up_bmp, b); }
-    void setDownBitmap (const Bitmap* b) { setElem(m_symb_down_bmp, b); }
+    void setUpBitmap   (const API::Bitmap* b) { setElem(m_symb_up_bmp, b); }
+    void setDownBitmap (const API::Bitmap* b) { setElem(m_symb_down_bmp, b); }
     void setPushed     (bool pushed)     { setElem(m_is_pushed, pushed); }
 
-    void onMouseEvent(const MouseEvent& ev);
+    void onMouseEvent(const API::MouseEvent& ev);
 
     virtual void onClick() = 0; // need not virtual (only for testing)
 
   protected:
 
-    const Bitmap*  m_symb_up_bmp;
-    const Bitmap*  m_symb_down_bmp;
+    const API::Bitmap*  m_symb_up_bmp;
+    const API::Bitmap*  m_symb_down_bmp;
 
-    static Bitmap*  s_button_up_bmp;
-    static Bitmap*  s_button_down_bmp;
+    static API::Bitmap*  s_button_up_bmp;
+    static API::Bitmap*  s_button_down_bmp;
 
   private:
 

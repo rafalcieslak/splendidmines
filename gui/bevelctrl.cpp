@@ -54,5 +54,5 @@ void BevelCtrl::draw()
 //------------------------------------------------------------------------------
 {
   Rect  rect (getAbsPos(), getSize());
-  WinDrawBevel (rect, m_thickness, m_raised);
+  API::WinDrawBevel (rect, m_thickness, m_raised);
 }

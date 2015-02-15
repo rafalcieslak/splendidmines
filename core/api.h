@@ -31,6 +31,8 @@ namespace MinesPerfect {
 
 class Options;
 
+namespace API{
+
 //******************************************************************************
 // Types
 //------------------------------------------------------------------------------
@@ -46,34 +48,11 @@ struct MouseEvent
 };
 
 //******************************************************************************
-struct Color
-//------------------------------------------------------------------------------
-{
-  int val;
-
-  Color (int v) : val(v) {};
-  Color () : val(0) {};
-
-  static const Color  BLACK;
-  static const Color  WHITE;
-  static const Color  DGRAY;
-  static const Color  GRAY;
-  static const Color  LGRAY;
-  static const Color  RED;
-  static const Color  BLUE;
-  static const Color  GREEN;
-  static const Color  YELLOW;
-  static const Color  DSHADOW;
-  static const Color  LSHADOW;
-};
-
-//******************************************************************************
 class Bitmap
 //------------------------------------------------------------------------------
 {
 public:
   virtual Point  getSize() const = 0;
-  virtual bool   isTransparent() const = 0; // wird im Moment nicht verwendet
   virtual bool   pointIsTransparent (const Point& p) const = 0;
 
   virtual ~Bitmap() { };
@@ -81,7 +60,6 @@ public:
 
 Bitmap* CreateBitmap (const string& kind, const string& spec);
 Bitmap* CreateBitmap (const Bitmap* from, const Rect& rect);
-Bitmap* CreateBitmap (const vector<Color>& data, int w);
 
 //******************************************************************************
 class Sound
@@ -94,7 +72,7 @@ public:
   virtual ~Sound() { }
 };
 
-Sound* CreateSound (const string& name);
+API::Sound* CreateSound (const string& name);
 
 //******************************************************************************
 class Timer // : protected TTimer
@@ -103,7 +81,6 @@ class Timer // : protected TTimer
 public:
   virtual int      getMSecs()  const = 0;
   virtual bool     isRunning() const = 0;
-  virtual void     Notify()          = 0;
   virtual clock_t  start()           = 0;
   virtual void     stop()            = 0;
   virtual void     reset()           = 0;
@@ -115,7 +92,7 @@ Timer* CreateTimer();
 //******************************************************************************
 // Functions
 //------------------------------------------------------------------------------
-void InitApi();
+void Init();
 
 void WinSetSize    (const Point& sz);                    // alternativ
 void WinDrawBitmap (const Bitmap* bmp, const Point& p);  //     "
@@ -125,8 +102,8 @@ void DlgNewRecord (Options* options, int num_msecs, bool certified_board);
 void FindFiles (vector<string>& files, const string& pattern);
 bool FileExist (const string& fname);
 void ShowMessageDlg (const string& text, const string& title);
-bool StartBrowser (const string& protokoll, const string& fname);
 
+} // namespace API
 } // namespace MinesPerfect
 
 #endif

@@ -41,15 +41,15 @@ class SmileyCtrl : public ButtonCtrl
 
     GameCtrl*  m_game;
 
-    static Bitmap*  s_smiley_happy_bmp;
-    static Bitmap*  s_smiley_1eye_bmp;
-    static Bitmap*  s_smiley_2eyes_bmp;
-    static Bitmap*  s_smiley_3eyes_bmp;
-    static Bitmap*  s_smiley_4eyes_bmp;
-    static Bitmap*  s_smiley_norm_bmp;
-    static Bitmap*  s_smiley_ooh_bmp;
-    static Bitmap*  s_smiley_worry_bmp;
-    static Bitmap*  s_smiley_sunglass_bmp;
+    static API::Bitmap*  s_smiley_happy_bmp;
+    static API::Bitmap*  s_smiley_1eye_bmp;
+    static API::Bitmap*  s_smiley_2eyes_bmp;
+    static API::Bitmap*  s_smiley_3eyes_bmp;
+    static API::Bitmap*  s_smiley_4eyes_bmp;
+    static API::Bitmap*  s_smiley_norm_bmp;
+    static API::Bitmap*  s_smiley_ooh_bmp;
+    static API::Bitmap*  s_smiley_worry_bmp;
+    static API::Bitmap*  s_smiley_sunglass_bmp;
 };
 
 

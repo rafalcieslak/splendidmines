@@ -97,7 +97,7 @@ Rect Ctrl::getAbsRect() const
 bool Ctrl::setElem (int&           p, int           sec) { return setElem2(p, sec); }
 bool Ctrl::setElem (bool&          p, bool          sec) { return setElem2(p, sec); }
 bool Ctrl::setElem (Point&         p, Point         sec) { return setElem2(p, sec); }
-bool Ctrl::setElem (const Bitmap*& p, const Bitmap* sec) { return setElem2(p, sec); }
+bool Ctrl::setElem (const API::Bitmap*& p, const API::Bitmap* sec) { return setElem2(p, sec); }
 //------------------------------------------------------------------------------
 
 
@@ -176,7 +176,7 @@ void Ctrl::show()
 }
 
 //******************************************************************************
-void Ctrl::onMouseEvent (const MouseEvent& ev)
+void Ctrl::onMouseEvent (const API::MouseEvent& ev)
 //------------------------------------------------------------------------------
 // hierbei handelt es sich um die Default-Ereignisbehandlungsroutine:
 // es wird nichts gemacht, ausser die Funktion rekursiv fuer alle

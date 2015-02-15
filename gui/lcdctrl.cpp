@@ -23,8 +23,8 @@
 using namespace MinesPerfect;
 
 
-Bitmap* LcdCtrl::s_minus_bmp      = 0;
-Bitmap* LcdCtrl::s_digit_bmps[10] = { 0 };
+API::Bitmap* LcdCtrl::s_minus_bmp      = 0;
+API::Bitmap* LcdCtrl::s_digit_bmps[10] = { 0 };
 
 //******************************************************************************
 LcdCtrl::LcdCtrl(Ctrl* parent)
@@ -38,12 +38,12 @@ LcdCtrl::LcdCtrl(Ctrl* parent)
     unsigned  i;  // visual studio
 
     // initialisieren
-    s_minus_bmp = CreateBitmap ("lcd", "-");
+    s_minus_bmp = API::CreateBitmap ("lcd", "-");
 
     for (i = 0; i < sizeof (s_digit_bmps) / sizeof (*s_digit_bmps); i++)
     {
       sprintf (buf, "%i", i);
-      s_digit_bmps[i] = CreateBitmap ("lcd", buf);
+      s_digit_bmps[i] = API::CreateBitmap ("lcd", buf);
     }
 
     // check size
@@ -72,15 +72,15 @@ void LcdCtrl::draw()
 
   // 1. Ziffer
   if (m_val < 0)
-    WinDrawBitmap (s_minus_bmp, pos);
+    API::WinDrawBitmap (s_minus_bmp, pos);
   else
-    WinDrawBitmap (s_digit_bmps[m_val / 100], pos);
+    API::WinDrawBitmap (s_digit_bmps[m_val / 100], pos);
 
   // 2. Ziffer
-  WinDrawBitmap (s_digit_bmps[(abs(m_val) / 10) % 10],
+  API::WinDrawBitmap (s_digit_bmps[(abs(m_val) / 10) % 10],
                  Point (pos.x + getSize().x / 3, pos.y));
 
   // 3. Ziffer
-  WinDrawBitmap (s_digit_bmps[abs(m_val) % 10],
+  API::WinDrawBitmap (s_digit_bmps[abs(m_val) % 10],
                  Point (pos.x + 2 * getSize().x / 3, pos.y));
 }

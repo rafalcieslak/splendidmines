@@ -23,11 +23,11 @@
 void BitmapCtrl::draw()
 //------------------------------------------------------------------------------
 {
-  WinDrawBitmap (m_bmp, getAbsPos());
+  API::WinDrawBitmap (m_bmp, getAbsPos());
 }
 
 //******************************************************************************
-void BitmapCtrl::setBitmap (const Bitmap* bmp)
+void BitmapCtrl::setBitmap (const API::Bitmap* bmp)
 //------------------------------------------------------------------------------
 {
   Ctrl::setElem (m_bmp, bmp);

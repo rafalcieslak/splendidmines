@@ -19,8 +19,8 @@
 
 #include "buttonctrl.h"
 
-Bitmap* ButtonCtrl::s_button_up_bmp   = 0;
-Bitmap* ButtonCtrl::s_button_down_bmp = 0;
+API::Bitmap* ButtonCtrl::s_button_up_bmp   = 0;
+API::Bitmap* ButtonCtrl::s_button_down_bmp = 0;
 
 //******************************************************************************
 ButtonCtrl::ButtonCtrl(Ctrl* parent) : Ctrl(parent)
@@ -31,8 +31,8 @@ ButtonCtrl::ButtonCtrl(Ctrl* parent) : Ctrl(parent)
   // statische Elemente initialisieren
   if (s_button_up_bmp == 0)
   {
-    s_button_up_bmp   = CreateBitmap ("button", "up"  );
-    s_button_down_bmp = CreateBitmap ("button", "down");
+    s_button_up_bmp   = API::CreateBitmap ("button", "up"  );
+    s_button_down_bmp = API::CreateBitmap ("button", "down");
 
     ASSERT (s_button_up_bmp->getSize() == s_button_down_bmp->getSize());
   }
@@ -47,7 +47,7 @@ void ButtonCtrl::draw()
   Point p = getAbsPos();
 
   // background
-  WinDrawBitmap (isPushed() ? s_button_down_bmp : s_button_up_bmp, p);
+  API::WinDrawBitmap (isPushed() ? s_button_down_bmp : s_button_up_bmp, p);
 
   // smiley
   if (isPushed())
@@ -58,7 +58,7 @@ void ButtonCtrl::draw()
     p.y += (s_button_down_bmp->getSize().y
            - m_symb_down_bmp->getSize().y) / 2 + 1;
 
-    WinDrawBitmap(m_symb_down_bmp, p);
+    API::WinDrawBitmap(m_symb_down_bmp, p);
   }
   else
   {
@@ -68,24 +68,24 @@ void ButtonCtrl::draw()
     p.y += (s_button_up_bmp->getSize().y
            - m_symb_up_bmp->getSize().y) / 2;
 
-    WinDrawBitmap(m_symb_up_bmp, p);
+    API::WinDrawBitmap(m_symb_up_bmp, p);
   }
 }
 
 //******************************************************************************
-void ButtonCtrl::onMouseEvent (const MouseEvent& ev)
+void ButtonCtrl::onMouseEvent (const API::MouseEvent& ev)
 //------------------------------------------------------------------------------
 {
-  if (ev.m_type == MouseEvent::LEFT_DOWN)
+  if (ev.m_type == API::MouseEvent::LEFT_DOWN)
   {
     setPushed(contains(ev.m_pos - getAbsPos()));
   }
-  else if (ev.m_type == MouseEvent::MOVE)
+  else if (ev.m_type == API::MouseEvent::MOVE)
   {
     if (isPushed() && !contains(ev.m_pos - getAbsPos()))
       setPushed(false);
   }
-  else if (ev.m_type == MouseEvent::LEFT_UP)
+  else if (ev.m_type == API::MouseEvent::LEFT_UP)
   {
     if (isPushed())
     {

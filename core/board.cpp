@@ -1822,8 +1822,8 @@ struct BoardReadError
 {
   Level  lvl = opt.getLevel();
 
-  if (FileExist (string("./boards/") + opt.getBoardName() + ".bmp")
-  &&  FileExist (string("./boards/") + opt.getBoardName() + ".txt"))
+  if (API::FileExist (string("./boards/") + opt.getBoardName() + ".bmp")
+  &&  API::FileExist (string("./boards/") + opt.getBoardName() + ".txt"))
   {
     string  fname = string("./boards/") + opt.getBoardName() + ".txt";
 

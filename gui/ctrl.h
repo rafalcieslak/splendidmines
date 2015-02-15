@@ -52,12 +52,12 @@ class Ctrl
     bool  setRelPos (Point new_rel_pos, bool recursive = false);
     bool  setSize   (Point new_size) { return setElem(m_size, new_size); }
 
-    virtual void  onMouseEvent (const MouseEvent& ev);
+    virtual void  onMouseEvent (const API::MouseEvent& ev);
 
   protected:
     bool setElem (int&           p, int           sec);
     bool setElem (bool&          p, bool          sec);
-    bool setElem (const Bitmap*& p, const Bitmap* sec);
+    bool setElem (const API::Bitmap*& p, const API::Bitmap* sec);
     bool setElem (Point&         p, Point         sec);
 
     virtual void draw() {}

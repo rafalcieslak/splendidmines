@@ -43,16 +43,16 @@ class GameCtrl : public Ctrl
     Options*  m_options;
     Board*    m_board;
     Logbook*  m_logbook;
-    Timer*    m_timer;
+    API::Timer*    m_timer;
 
     // sounds
-    Sound*    m_open_sound;
-    Sound*    m_flag_sound;
-    Sound*    m_error_sound;
-    Sound*    m_new_sound;
-    Sound*    m_won_sound;
-    Sound*    m_lost_sound;
-    Sound*    m_deadend_sound;
+    API::Sound*    m_open_sound;
+    API::Sound*    m_flag_sound;
+    API::Sound*    m_error_sound;
+    API::Sound*    m_new_sound;
+    API::Sound*    m_won_sound;
+    API::Sound*    m_lost_sound;
+    API::Sound*    m_deadend_sound;
 
     GameCtrl(Options* options);
 
@@ -77,7 +77,7 @@ class GameCtrl : public Ctrl
     void save (const string& fname);
     void undo (bool all);
     void redo();
-    void onMouseEvent (const MouseEvent& ev);
+    void onMouseEvent (const API::MouseEvent& ev);
     void showTime (int secs);
 
     void setOpenAfterStart() { m_open_after_start = true; }

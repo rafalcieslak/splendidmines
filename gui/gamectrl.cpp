@@ -62,13 +62,13 @@ using namespace MinesPerfect;
 void GameCtrl::initSound()
 //------------------------------------------------------------------------------
 {
-  m_open_sound    = CreateSound ("open");
-  m_flag_sound    = CreateSound ("flag");
-  m_error_sound   = CreateSound ("error");
-  m_new_sound     = CreateSound ("new");
-  m_won_sound     = CreateSound ("won");
-  m_lost_sound    = CreateSound ("lost");
-  m_deadend_sound = CreateSound ("deadend");
+  m_open_sound    = API::CreateSound ("open");
+  m_flag_sound    = API::CreateSound ("flag");
+  m_error_sound   = API::CreateSound ("error");
+  m_new_sound     = API::CreateSound ("new");
+  m_won_sound     = API::CreateSound ("won");
+  m_lost_sound    = API::CreateSound ("lost");
+  m_deadend_sound = API::CreateSound ("deadend");
 }
 
 //******************************************************************************
@@ -303,7 +303,7 @@ void GameCtrl::actWin(void) // eh. actBoard
       &&  m_options->getLevelNr() != USER_DEFINED
       &&  m_open_after_start)
       {
-        DlgNewRecord (m_options, num_msecs, m_board->isCertified());
+        API::DlgNewRecord (m_options, num_msecs, m_board->isCertified());
       }
     }
     else if (m_board->gameIsLost())
@@ -348,8 +348,8 @@ void GameCtrl::newGame (int change_level)
       m_board_ctrl->setLevel(m_options->getLevel());
 
     alignCtrls();
-    WinSetSize(m_win_bevel->getSize());
-    setDirty(); // wegen WinSetSize
+    API::WinSetSize(m_win_bevel->getSize());
+    setDirty(); // wegen API::WinSetSize
   }
 
   // num-mines + smiley
@@ -420,7 +420,7 @@ GameCtrl::GameCtrl(Options* options) : Ctrl(0)
   initSound();
   initCtrls();
 
-  m_timer   = CreateTimer();
+  m_timer   = API::CreateTimer();
   m_logbook = 0;
   m_board   = 0;
   m_options = options;
@@ -481,11 +481,11 @@ void GameCtrl::setMurphysLaw (bool set_on)
 }
 
 //******************************************************************************
-void GameCtrl::onMouseEvent (const MouseEvent& ev)
+void GameCtrl::onMouseEvent (const API::MouseEvent& ev)
 //------------------------------------------------------------------------------
 {
-//  if      (ev.m_type == MouseEvent::LEFT_DOWN)    m_left_mousebutton_down  = true;
-//  else if (ev.m_type == MouseEvent::LEFT_UP)      m_left_mousebutton_down  = false;
+//  if      (ev.m_type == API::MouseEvent::LEFT_DOWN)    m_left_mousebutton_down  = true;
+//  else if (ev.m_type == API::MouseEvent::LEFT_UP)      m_left_mousebutton_down  = false;
 
 //  m_smiley_button->onMouseEvent (ev, p);
 //  m_board_ctrl->onMouseEvent (ev, p - m_board_ctrl->m_rect.getPos());
@@ -787,7 +787,7 @@ void GameCtrl::load (const string& fname)
   catch (LogException &exception)
   {
     m_error_sound->play();
-    ShowMessageDlg (exception.getText(), "Load-Error");
+    API::ShowMessageDlg (exception.getText(), "Load-Error");
     return;
   }
 
@@ -806,7 +806,7 @@ void GameCtrl::save (const string& fname)
   catch (LogException &exception)
   {
     m_error_sound->play();
-    ShowMessageDlg (exception.getText(), "Save-Error");
+    API::ShowMessageDlg (exception.getText(), "Save-Error");
   }
 }
 

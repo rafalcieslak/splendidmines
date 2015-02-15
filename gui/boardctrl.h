@@ -49,7 +49,7 @@ class BoardCtrl : public Ctrl
     void actCurCells (bool left_is_down, bool right_is_down);
     void actChangedCells();
     void setCellsDirty();
-    void onMouseEvent (const MouseEvent& ev);
+    void onMouseEvent (const API::MouseEvent& ev);
 
   private: //-------------------------------------------------------------------
 
@@ -59,26 +59,26 @@ class BoardCtrl : public Ctrl
     set<CellNr>  m_cur_cells;
 
     // bitmaps
-    Bitmap*   m_source_bmp; // (->board_cur_bmp)?, aus <board>.bmp
+    API::Bitmap*   m_source_bmp; // (->board_cur_bmp)?, aus <board>.bmp
 
-    static Bitmap*   s_board_square_bmp;
-    static Bitmap*   s_board_triangle_bmp;
-    static Bitmap*   s_board_hexagon_bmp;
-    static Bitmap*   s_board_grid3d_bmp;
+    static API::Bitmap*   s_board_square_bmp;
+    static API::Bitmap*   s_board_triangle_bmp;
+    static API::Bitmap*   s_board_hexagon_bmp;
+    static API::Bitmap*   s_board_grid3d_bmp;
 
-    static Bitmap*   s_symb_flag_bmp;
-    static Bitmap*   s_symb_quest_bmp;
-    static Bitmap*   s_symb_mine_bmp;
-    static Bitmap*   s_symb_cross_bmp;
-    static Bitmap*   s_symb_zero_bmp;
-    static Bitmap*   s_symb_digit_bmps[28];
+    static API::Bitmap*   s_symb_flag_bmp;
+    static API::Bitmap*   s_symb_quest_bmp;
+    static API::Bitmap*   s_symb_mine_bmp;
+    static API::Bitmap*   s_symb_cross_bmp;
+    static API::Bitmap*   s_symb_zero_bmp;
+    static API::Bitmap*   s_symb_digit_bmps[28];
 
-    vector<Bitmap*>  m_cell_close_bmps;
-    vector<Bitmap*>  m_cell_open_bmps;
-    vector<Bitmap*>  m_cell_hintclose_bmps;
-    vector<Bitmap*>  m_cell_hintopen_bmps;
-    vector<Bitmap*>  m_cell_error_bmps;
-    vector<Bitmap*>  m_frame_bmps;
+    vector<API::Bitmap*>  m_cell_close_bmps;
+    vector<API::Bitmap*>  m_cell_open_bmps;
+    vector<API::Bitmap*>  m_cell_hintclose_bmps;
+    vector<API::Bitmap*>  m_cell_hintopen_bmps;
+    vector<API::Bitmap*>  m_cell_error_bmps;
+    vector<API::Bitmap*>  m_frame_bmps;
 
     vector<BitmapCtrl*>  m_frame_ctrls;
     vector<BitmapCtrl*>  m_cell_ctrls;
