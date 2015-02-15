@@ -8,7 +8,9 @@ Splendid Mines is a fork of the great [Mines-Perfect](http://www.czeppi.de/engli
 Because of Mines-Perfect is now a slightly old software, it does not support modern machines very well. Also, it was always developed for Windows only, and while there are traces of limited Linux support, the original game has never worked on non-Windows machines. Splendid Mines aims to solve these problems.
 
 ### Compiling and running
-Sorry, at this point it is not yet possible to compile Splendid Mines.
+Create a `build` directory. Run `cmake ..` inside. When cmake finishes, run `make` to begin compiltion. Once it is done, run `./splendidmines`.
+
+At this very early stage of development do not expect to see anything working at all.
 
 ### Goals
 

@@ -11,7 +11,7 @@ int main(int argc, char** argv){
   Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create();
   try
   {
-    refBuilder->add_from_file("frontend/splendidmines.glade");
+    refBuilder->add_from_file("splendidmines.glade");
   }
   catch(const Glib::FileError& ex)
   {
