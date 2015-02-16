@@ -37,6 +37,7 @@ int main(int argc, char** argv){
   if(pMainWindow)
   {
     pMainWindow->game = new MinesPerfect::GameCtrl(options);
+    pMainWindow->game->changeBoard(0);
     pMainWindow->game->show();
     Gtk::Main::run(*pMainWindow);
   }

@@ -23,8 +23,10 @@ public:
 class BitmapImplementation : public API::Bitmap{
 public:
 	Glib::RefPtr<Gdk::Pixbuf> pixbuf;
+	std::string name;
 	BitmapImplementation(){};
 	BitmapImplementation(const std::string path){
+		name = path;
 		pixbuf = Gdk::Pixbuf::create_from_file(path);
 	}
   virtual Point getSize() const{
@@ -57,7 +59,8 @@ API::Bitmap* MinesPerfect::API::CreateBitmap (const API::Bitmap* from, const Rec
 	const BitmapImplementation* bi = dynamic_cast<const BitmapImplementation*>(from);
 	BitmapImplementation* new_bi = new BitmapImplementation();
 	new_bi->pixbuf = Gdk::Pixbuf::create( bi->pixbuf->get_colorspace(), bi->pixbuf->get_has_alpha(), bi->pixbuf->get_bits_per_sample(), rect.getWidth(), rect.getHeight());
-	bi->pixbuf->composite( new_bi->pixbuf, 0,0, rect.getWidth(), rect.getHeight(), rect.getLeft(), rect.getTop(), 1.0, 1.0, Gdk::InterpType::INTERP_NEAREST, 255);
+	bi->pixbuf->composite( new_bi->pixbuf, 0,0, rect.getWidth(), rect.getHeight(), -rect.getLeft(), -rect.getTop(), 1.0, 1.0, Gdk::InterpType::INTERP_NEAREST, 255);
+	new_bi->name = bi->name + " (" + std::to_string(rect.getLeft()) + " " + std::to_string(rect.getTop()) + ")";
 	return new_bi;
 }
 
@@ -113,22 +116,40 @@ void MinesPerfect::API::WinSetSize    (const Point& sz){
 void MinesPerfect::API::WinDrawBitmap (const API::Bitmap* bmp, const Point& p){
 	if(bmp == nullptr) return;
 	const BitmapImplementation* bi = dynamic_cast<const BitmapImplementation*>(bmp);
+	//std::cerr << "Will draw tex " << bi->name << " at " << p.x << " " << p.y;
 	Cairo::RefPtr<Cairo::Context> cr = pMainWindow->crBackBufferContext;
 	cr->save();
 	Gdk::Cairo::set_source_pixbuf(cr,bi->pixbuf,p.x,p.y);
 	cr->rectangle(p.x, p.y, bi->pixbuf->get_width(), bi->pixbuf->get_height() );
-	cr->paint();
+	cr->fill();
 	cr->restore();
-	std::cerr << "drawn bitmap" << std::endl;
-	pMainWindow->RedrawGameArea();
+	pMainWindow->RedrawGameArea();//p.x,p.y, bi->pixbuf->get_width(), bi->pixbuf->get_height());
 }
 void MinesPerfect::API::WinDrawBevel  (const Rect& rect, int thickness, bool raised){
+	double th = thickness/2.0;
+  if (rect.getWidth()  < 2 * thickness || rect.getHeight() < 2 * thickness)
+    return;
+	//std::cerr << "Will draw bevel " << thickness << "." << (int)raised <<  " at " << rect.getLeft() << " " << rect.getTop() << " " << rect.getWidth() << " " << rect.getHeight() << std::endl;
 	Cairo::RefPtr<Cairo::Context> cr = pMainWindow->crBackBufferContext;
 	cr->save();
-	cr->set_source_rgb(1.0, 0.0, 0.0);
   cr->set_line_width(thickness);
-  cr->move_to(rect.getLeft(), rect.getTop());
-  cr->line_to(rect.getLeft() + rect.getWidth(), rect.getTop() + rect.getHeight());
+	if(raised) cr->set_source_rgb(1.0,1.0,1.0);
+	else       cr->set_source_rgb(0.5,0.5,0.5);
+  cr->move_to( rect.getLeft()                ,  th+rect.getTop()                 );
+	cr->line_to( rect.getLeft()+rect.getWidth(),  th+rect.getTop()                 );
+  cr->move_to( th+rect.getLeft()                ,  rect.getTop()                 );
+	cr->line_to( th+rect.getLeft()                ,  rect.getTop()+rect.getHeight());
+	cr->stroke();
+	cr->restore();
+	cr->save();
+  cr->set_line_width(thickness);
+	if(raised) cr->set_source_rgb(0.5,0.5,0.5);
+	else       cr->set_source_rgb(1.0,1.0,1.0);
+	cr->move_to(-th+rect.getLeft()+rect.getWidth(), rect.getTop()                 );
+	cr->line_to(-th+rect.getLeft()+rect.getWidth(), rect.getTop()+rect.getHeight());
+	cr->move_to(rect.getLeft()                , -th+rect.getTop()+rect.getHeight());
+	cr->line_to(rect.getLeft()+rect.getWidth(), -th+rect.getTop()+rect.getHeight());
+	cr->stroke();
 	cr->restore();
 	pMainWindow->RedrawGameArea();
 }

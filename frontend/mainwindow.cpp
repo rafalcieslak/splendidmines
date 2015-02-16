@@ -8,7 +8,7 @@ MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>
 
 	gtkMenuitemExit->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemExitClicked));
 
-	crBackBufferSurface = Cairo::ImageSurface::create(Cairo::Format::FORMAT_RGB24, 1500, 1500);
+	crBackBufferSurface = Cairo::ImageSurface::create(Cairo::Format::FORMAT_ARGB32, 1500, 1500);
 	crBackBufferContext = Cairo::Context::create(crBackBufferSurface);
 
 	gtkDA->signal_draw().connect(sigc::mem_fun(*this,&MainWindow::OnGameAreaDraw));
@@ -24,17 +24,25 @@ void MainWindow::OnMenuitemExitClicked(){
 
 void MainWindow::SetGameAreaSize(int width, int height){
 	gtkDA->set_size_request(width,height);
+	crBackBufferContext->save();
+	crBackBufferContext->set_source_rgb(0.75,0.75,0.75);
+	crBackBufferContext->rectangle(0,0,width,height);
+	crBackBufferContext->fill();
+	crBackBufferContext->restore();
 }
 
 void MainWindow::RedrawGameArea(){
 	gtkDA->queue_draw();
+}
+void MainWindow::RedrawGameArea(int x, int y, int w, int h){
+	gtkDA->queue_draw_area(x,y,w,h);
 }
 
 bool MainWindow::OnGameAreaDraw(const Cairo::RefPtr<Cairo::Context>& cr){
 	cr->save();
 	cr->set_source(crBackBufferSurface,0,0);
 	cr->rectangle(0,0,gtkDA->get_width(),gtkDA->get_height());
-	cr->paint();
+	cr->fill();
 	cr->restore();
 	return true;
 }

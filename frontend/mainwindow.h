@@ -16,6 +16,7 @@ public:
 	Cairo::RefPtr<Cairo::Context> crBackBufferContext;
 
 	void RedrawGameArea();
+	void RedrawGameArea(int x, int y, int w, int h);
 private:
 	Glib::RefPtr<Gtk::Builder> builder;
 
