@@ -58,7 +58,8 @@ API::Bitmap* MinesPerfect::API::CreateBitmap (const string& kind, const string& 
 API::Bitmap* MinesPerfect::API::CreateBitmap (const API::Bitmap* from, const Rect& rect){
 	const BitmapImplementation* bi = dynamic_cast<const BitmapImplementation*>(from);
 	BitmapImplementation* new_bi = new BitmapImplementation();
-	new_bi->pixbuf = Gdk::Pixbuf::create( bi->pixbuf->get_colorspace(), bi->pixbuf->get_has_alpha(), bi->pixbuf->get_bits_per_sample(), rect.getWidth(), rect.getHeight());
+	new_bi->pixbuf = Gdk::Pixbuf::create( bi->pixbuf->get_colorspace(), true, bi->pixbuf->get_bits_per_sample(), rect.getWidth(), rect.getHeight());
+	new_bi->pixbuf->fill(0x00000000);
 	bi->pixbuf->composite( new_bi->pixbuf, 0,0, rect.getWidth(), rect.getHeight(), -rect.getLeft(), -rect.getTop(), 1.0, 1.0, Gdk::InterpType::INTERP_NEAREST, 255);
 	new_bi->name = bi->name + " (" + std::to_string(rect.getLeft()) + " " + std::to_string(rect.getTop()) + ")";
 	return new_bi;
