@@ -5,8 +5,23 @@ MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>
 {
 	builder->get_widget("gtkDA",gtkDA);
 	builder->get_widget("menuitemExit",gtkMenuitemExit);
+	builder->get_widget("menuitemBeginner",gtkMenuitemBeginner);
+	builder->get_widget("menuitemIntermediate",gtkMenuitemIntermediate);
+	builder->get_widget("menuitemExpert",gtkMenuitemExpert);
+	builder->get_widget("menuitemSquare",gtkMenuitemSquare);
+	builder->get_widget("menuitemHexagon",gtkMenuitemHexagon);
+	builder->get_widget("menuitemTriangle",gtkMenuitemTriangle);
+	builder->get_widget("menuitem3Dgrid",gtkMenuitem3Dgrid);
 
 	gtkMenuitemExit->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemExitClicked));
+	gtkMenuitemBeginner->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemBeginnerClicked));
+	gtkMenuitemIntermediate->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemIntermediateClicked));
+	gtkMenuitemExpert->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemExpertClicked));
+
+	gtkMenuitemSquare->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemSquareClicked));
+	gtkMenuitemHexagon->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemHexagonClicked));
+	gtkMenuitemTriangle->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemTriangleClicked));
+	gtkMenuitem3Dgrid->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitem3DgridClicked));
 
 	crBackBufferSurface = Cairo::ImageSurface::create(Cairo::Format::FORMAT_ARGB32, 1500, 1500);
 	crBackBufferContext = Cairo::Context::create(crBackBufferSurface);
@@ -96,4 +111,34 @@ bool MainWindow::OnGameAreaMouseMotion(GdkEventMotion* ev){
   game->onMouseEvent(mp_event);
   game->show();
 	return true;
+}
+
+
+void MainWindow::OnMenuitemBeginnerClicked(){
+  game->changeLevel (MinesPerfect::BEGINNER);
+	game->show();
+}
+void MainWindow::OnMenuitemIntermediateClicked(){
+  game->changeLevel (MinesPerfect::INTERMEDIATE);
+	game->show();
+}
+void MainWindow::OnMenuitemExpertClicked(){
+  game->changeLevel (MinesPerfect::EXPERT);
+	game->show();
+}
+void MainWindow::OnMenuitemSquareClicked(){
+  game->changeBoard (0);
+	game->show();
+}
+void MainWindow::OnMenuitemTriangleClicked(){
+  game->changeBoard (2);
+	game->show();
+}
+void MainWindow::OnMenuitemHexagonClicked(){
+  game->changeBoard (1);
+	game->show();
+}
+void MainWindow::OnMenuitem3DgridClicked(){
+  game->changeBoard (3);
+	game->show();
 }

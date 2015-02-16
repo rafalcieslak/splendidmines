@@ -24,6 +24,13 @@ private:
 	Cairo::RefPtr<Cairo::ImageSurface> crBackBufferSurface;
 
 	Gtk::MenuItem*    gtkMenuitemExit;
+	Gtk::MenuItem*    gtkMenuitemBeginner;
+	Gtk::MenuItem*    gtkMenuitemIntermediate;
+	Gtk::MenuItem*    gtkMenuitemExpert;
+	Gtk::MenuItem*    gtkMenuitemSquare;
+	Gtk::MenuItem*    gtkMenuitemHexagon;
+	Gtk::MenuItem*    gtkMenuitemTriangle;
+	Gtk::MenuItem*    gtkMenuitem3Dgrid;
 
 	void OnMenuitemExitClicked();
 	bool OnGameAreaDraw(const Cairo::RefPtr<Cairo::Context>& cr);
@@ -33,6 +40,15 @@ private:
 	MinesPerfect::Point prev_mouse_position = MinesPerfect::Point(-1,-1);
 	bool LMB_down = false;
 	bool RMB_down = false;
+
+	void OnMenuitemBeginnerClicked();
+	void OnMenuitemIntermediateClicked();
+	void OnMenuitemExpertClicked();
+	void OnMenuitemSquareClicked();
+	void OnMenuitemTriangleClicked();
+	void OnMenuitemHexagonClicked();
+	void OnMenuitem3DgridClicked();
+
 };
 
 #endif

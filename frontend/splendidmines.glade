@@ -191,35 +191,42 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkMenuItem" id="menuitemSquare">
+                      <object class="GtkRadioMenuItem" id="menuitemSquare">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Square</property>
                         <property name="use_underline">True</property>
+                        <property name="draw_as_radio">True</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkMenuItem" id="menuitemHexagon">
+                      <object class="GtkRadioMenuItem" id="menuitemHexagon">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Hexagon</property>
                         <property name="use_underline">True</property>
+                        <property name="draw_as_radio">True</property>
+                        <property name="group">menuitemSquare</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkMenuItem" id="menuitemTriangle">
+                      <object class="GtkRadioMenuItem" id="menuitemTriangle">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Triangle</property>
                         <property name="use_underline">True</property>
+                        <property name="draw_as_radio">True</property>
+                        <property name="group">menuitemSquare</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkMenuItem" id="menuitem3Dgrid">
+                      <object class="GtkRadioMenuItem" id="menuitem3Dgrid">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">3D grid</property>
                         <property name="use_underline">True</property>
+                        <property name="draw_as_radio">True</property>
+                        <property name="group">menuitemSquare</property>
                       </object>
                     </child>
                   </object>
