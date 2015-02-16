@@ -39,8 +39,8 @@ public:
 		if(p.x >= pixbuf->get_width() || p.y >= pixbuf->get_height()) return true;
 		guchar* pixels = pixbuf->get_pixels();
 		guchar* px = pixels + p.x * pixbuf->get_n_channels() + p.y * pixbuf->get_rowstride();
-		if(px[4] < 200) return false;
-		return true;
+		if(px[3] < 200) return true;
+		return false;
 	}
 
 };
