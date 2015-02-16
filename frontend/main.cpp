@@ -3,10 +3,16 @@
 #include "mainwindow.h"
 #include "../core/options.h"
 #include "../gui/gamectrl.h"
+#include <cstdlib>
 
 MainWindow* pMainWindow = nullptr;
 
 int main(int argc, char** argv){
+#ifdef __linux__
+  // Workaround for disabling Ubuntu global menu.
+  setenv("UBUNTU_MENUPROXY", "", 1);
+#endif
+
   Gtk::Main gtkmain(argc, argv);
 
   //Load the Glade file and instiate its widgets:
@@ -37,7 +43,7 @@ int main(int argc, char** argv){
   if(pMainWindow)
   {
     pMainWindow->game = new MinesPerfect::GameCtrl(options);
-    pMainWindow->game->changeBoard(0);
+    pMainWindow->game->changeBoard(1);
     pMainWindow->game->show();
     Gtk::Main::run(*pMainWindow);
   }
