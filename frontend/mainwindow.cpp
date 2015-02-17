@@ -48,7 +48,6 @@ MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>
 	gtkMenuitemIntermediate->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemIntermediateClicked));
 	gtkMenuitemExpert->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemExpertClicked));
 
-
 	gtkMenuitemOriginal->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemOriginalClicked));
 	gtkMenuitemLucky->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemLuckyClicked));
 	gtkMenuitemImmune->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemImmuneClicked));
@@ -69,6 +68,8 @@ MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>
 	gtkDA->signal_button_press_event().connect(sigc::mem_fun(*this, &MainWindow::OnGameAreaMousePress));
 	gtkDA->signal_button_release_event().connect(sigc::mem_fun(*this, &MainWindow::OnGameAreaMouseRelase));
 	gtkDA->signal_motion_notify_event().connect(sigc::mem_fun(*this, &MainWindow::OnGameAreaMouseMotion));
+
+	signal_delete_event().connect(sigc::mem_fun(*this,&MainWindow::OnWindowDelete));
 }
 
 void MainWindow::UpdateMenuIndicators(){
@@ -286,4 +287,12 @@ void MainWindow::OnMenuitem3DgridClicked(){
 	if(dismiss_menu_toggle_signals) return;
   game->changeBoard (3);
 	game->show();
+}
+
+bool MainWindow::OnWindowDelete(GdkEventAny* event){
+	int x, y;
+	get_position(x,y);
+	game->m_options->setXPos(x);
+	game->m_options->setYPos(y);
+	game->m_options->saveIni();
 }

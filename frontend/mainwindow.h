@@ -60,6 +60,8 @@ private:
 	Gtk::RadioMenuItem*    gtkMenuitemTriangle;
 	Gtk::RadioMenuItem*    gtkMenuitem3Dgrid;
 
+	bool OnWindowDelete(GdkEventAny* event);
+
 	bool OnGameAreaDraw(const Cairo::RefPtr<Cairo::Context>& cr);
 	bool OnGameAreaMousePress(GdkEventButton*);
 	bool OnGameAreaMouseRelase(GdkEventButton*);
