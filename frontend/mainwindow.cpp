@@ -39,6 +39,15 @@ MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>
 	builder->get_widget("menuitemHexagon",gtkMenuitemHexagon);
 	builder->get_widget("menuitemTriangle",gtkMenuitemTriangle);
 	builder->get_widget("menuitem3Dgrid",gtkMenuitem3Dgrid);
+	builder->get_widget("menuitemGiveHint",gtkMenuitemGiveHint);
+	builder->get_widget("menuitemSolveOne",gtkMenuitemSolveOne);
+	builder->get_widget("menuitemSolveAll1",gtkMenuitemSolveAll1);
+	builder->get_widget("menuitemSolveAll2",gtkMenuitemSolveAll2);
+	builder->get_widget("menuitemSolveAll3",gtkMenuitemSolveAll3);
+	builder->get_widget("menuitemShowMines",gtkMenuitemShowMines);
+	builder->get_widget("menuitemUndo",gtkMenuitemUndo);
+	builder->get_widget("menuitemRedo",gtkMenuitemRedo);
+	builder->get_widget("menuitemUndoAll",gtkMenuitemUndoAll);
 
 	gtkMenuitemNew->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemNewClicked));
 	gtkMenuitemOpen->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemOpenClicked));
@@ -59,6 +68,17 @@ MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>
 	gtkMenuitemHexagon->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemHexagonClicked));
 	gtkMenuitemTriangle->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemTriangleClicked));
 	gtkMenuitem3Dgrid->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitem3DgridClicked));
+
+	gtkMenuitemGiveHint->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemGiveHintClicked));
+	gtkMenuitemSolveOne->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemSolveOneClicked));
+	gtkMenuitemSolveAll1->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemSolveAll1Clicked));
+	gtkMenuitemSolveAll2->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemSolveAll2Clicked));
+	gtkMenuitemSolveAll3->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemSolveAll3Clicked));
+	gtkMenuitemShowMines->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemShowMinesClicked));
+
+	gtkMenuitemUndo->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemUndoClicked));
+	gtkMenuitemRedo->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemRedoClicked));
+	gtkMenuitemUndoAll->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemUndoAllClicked));
 
 	crBackBufferSurface = Cairo::ImageSurface::create(Cairo::Format::FORMAT_ARGB32, 1500, 1500);
 	crBackBufferContext = Cairo::Context::create(crBackBufferSurface);
@@ -84,6 +104,7 @@ void MainWindow::UpdateMenuIndicators(){
 	gtkMenuitemHint->    set_active(game->m_options->getModus() == MinesPerfect::HINTS);
 	gtkMenuitemStartup-> set_active(game->m_options->getModus() == MinesPerfect::STARTUP);
 	gtkMenuitemMurph->   set_active(game->m_options->getMurphysLaw());
+	gtkMenuitemMurph->   set_active(game->m_options->getShowMines());
 	dismiss_menu_toggle_signals = false;
 }
 void MainWindow::OnMenuitemExitClicked(){
@@ -252,6 +273,31 @@ void MainWindow::OnMenuitemMurphClicked(){
   game->setMurphysLaw (gtkMenuitemMurph->get_active());
 	game->show();
 }
+void MainWindow::OnMenuitemShowMinesClicked(){
+	if(dismiss_menu_toggle_signals) return;
+  game->setShowMines (gtkMenuitemShowMines->get_active());
+	game->show();
+}
+void MainWindow::OnMenuitemGiveHintClicked(){
+	game->giveHint();
+	game->show();
+}
+void MainWindow::OnMenuitemSolveOneClicked(){
+  game->solveOne();
+	game->show();
+}
+void MainWindow::OnMenuitemSolveAll1Clicked(){
+	game->solveAll(1);
+	game->show();
+}
+void MainWindow::OnMenuitemSolveAll2Clicked(){
+	game->solveAll(2);
+	game->show();
+}
+void MainWindow::OnMenuitemSolveAll3Clicked(){
+	game->solveAll(3);
+	game->show();
+}
 
 void MainWindow::OnMenuitemBeginnerClicked(){
 	if(dismiss_menu_toggle_signals) return;
@@ -286,6 +332,18 @@ void MainWindow::OnMenuitemHexagonClicked(){
 void MainWindow::OnMenuitem3DgridClicked(){
 	if(dismiss_menu_toggle_signals) return;
   game->changeBoard (3);
+	game->show();
+}
+void MainWindow::OnMenuitemUndoClicked(){
+  game->undo(false);
+	game->show();
+}
+void MainWindow::OnMenuitemUndoAllClicked(){
+  game->undo(true);
+	game->show();
+}
+void MainWindow::OnMenuitemRedoClicked(){
+  game->redo();
 	game->show();
 }
 

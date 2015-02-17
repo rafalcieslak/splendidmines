@@ -59,6 +59,15 @@ private:
 	Gtk::RadioMenuItem*    gtkMenuitemHexagon;
 	Gtk::RadioMenuItem*    gtkMenuitemTriangle;
 	Gtk::RadioMenuItem*    gtkMenuitem3Dgrid;
+	Gtk::MenuItem*    gtkMenuitemGiveHint;
+	Gtk::MenuItem*    gtkMenuitemSolveOne;
+	Gtk::MenuItem*    gtkMenuitemSolveAll1;
+	Gtk::MenuItem*    gtkMenuitemSolveAll2;
+	Gtk::MenuItem*    gtkMenuitemSolveAll3;
+	Gtk::CheckMenuItem*    gtkMenuitemShowMines;
+	Gtk::MenuItem*    gtkMenuitemUndo;
+	Gtk::MenuItem*    gtkMenuitemRedo;
+	Gtk::MenuItem*    gtkMenuitemUndoAll;
 
 	bool OnWindowDelete(GdkEventAny* event);
 
@@ -88,7 +97,15 @@ private:
 	void OnMenuitemImmuneClicked();
 	void OnMenuitemStartupClicked();
 	void OnMenuitemMurphClicked();
-
+	void OnMenuitemGiveHintClicked();
+	void OnMenuitemSolveOneClicked();
+	void OnMenuitemSolveAll1Clicked();
+	void OnMenuitemSolveAll2Clicked();
+	void OnMenuitemSolveAll3Clicked();
+	void OnMenuitemShowMinesClicked();
+	void OnMenuitemUndoClicked();
+	void OnMenuitemRedoClicked();
+	void OnMenuitemUndoAllClicked();
 };
 
 #endif
