@@ -7,6 +7,12 @@ Splendid Mines is a fork of the great [Mines-Perfect](http://www.czeppi.de/engli
 
 Because of Mines-Perfect is now a slightly old software, it does not support modern machines very well. Also, it was always developed for Windows only, and while there are traces of limited Linux support, the original game has never worked on non-Windows machines. Splendid Mines aims to solve these problems.
 
+### License
+
+    Copyright 2015 Rafał Cieślak
+    Splendid Mines is based on Mines-Perfect, Copyright 1995-2003 Christian Czepluch.
+    This software is published under the terms of the GNU General Public License, version 3. See `LICENCE` file for details.
+
 ### Compiling and running
 Create a `build` directory. Run `cmake ..` inside. When cmake finishes, run `make` to begin compiltion. Once it is done, run `./splendidmines`.
 
@@ -24,19 +30,19 @@ At this very early stage of development do not expect to see anything working at
 - Fixing remaining bugs, and generally implementing a number of improvements.
 
 ### Roadmap
-- Version 1.5:
+- **Version 1.5**
  - A simple, naive port that compiles and runs successfully on Linux.
  - The goal is to mimic the original 1.4 as closely as possible.
  - No new features or game logic improvements.
  - Using only original textures.
  - Keeping changes in the original code to minimum.
-- Version 1.6
+- **Version 1.6**
  - Cleaning up the original code. Restructuring and modernizing the source code for C++14.
  - Refactoring the frontend API.
  - Documenting the source code.
  - Translating comments.
  - Providing binary releases for Windows and Linux.
-- Version 1.7
+- **Version 1.7**
  - At this point new features will be welcome.
  - Fixes for game logic.
  - [Optionally] updated textures.
