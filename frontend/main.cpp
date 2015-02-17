@@ -60,6 +60,7 @@ int main(int argc, char** argv){
   if(pMainWindow)
   {
     pMainWindow->game = new MinesPerfect::GameCtrl(options);
+    pMainWindow->UpdateMenuIndicators();
     pMainWindow->game->show();
     Gtk::Main::run(*pMainWindow);
   }

@@ -16,12 +16,22 @@
     */
 
 #include "mainwindow.h"
+#include <iostream>
 
 MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refGlade):
 		Gtk::Window(cobject), builder(refGlade)
 {
 	builder->get_widget("gtkDA",gtkDA);
+	builder->get_widget("menuitemNew",gtkMenuitemNew);
+	builder->get_widget("menuitemOpen",gtkMenuitemOpen);
+	builder->get_widget("menuitemSave",gtkMenuitemSave);
 	builder->get_widget("menuitemExit",gtkMenuitemExit);
+	builder->get_widget("menuitemOriginal",gtkMenuitemOriginal);
+	builder->get_widget("menuitemHint",gtkMenuitemHint);
+	builder->get_widget("menuitemLucky",gtkMenuitemLucky);
+	builder->get_widget("menuitemImmune",gtkMenuitemImmune);
+	builder->get_widget("menuitemStartup",gtkMenuitemStartup);
+	builder->get_widget("menuitemMurph",gtkMenuitemMurph);
 	builder->get_widget("menuitemBeginner",gtkMenuitemBeginner);
 	builder->get_widget("menuitemIntermediate",gtkMenuitemIntermediate);
 	builder->get_widget("menuitemExpert",gtkMenuitemExpert);
@@ -30,10 +40,21 @@ MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>
 	builder->get_widget("menuitemTriangle",gtkMenuitemTriangle);
 	builder->get_widget("menuitem3Dgrid",gtkMenuitem3Dgrid);
 
+	gtkMenuitemNew->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemNewClicked));
+	gtkMenuitemOpen->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemOpenClicked));
+	gtkMenuitemSave->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemSaveClicked));
 	gtkMenuitemExit->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemExitClicked));
 	gtkMenuitemBeginner->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemBeginnerClicked));
 	gtkMenuitemIntermediate->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemIntermediateClicked));
 	gtkMenuitemExpert->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemExpertClicked));
+
+
+	gtkMenuitemOriginal->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemOriginalClicked));
+	gtkMenuitemLucky->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemLuckyClicked));
+	gtkMenuitemImmune->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemImmuneClicked));
+	gtkMenuitemHint->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemHintClicked));
+	gtkMenuitemStartup->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemStartupClicked));
+	gtkMenuitemMurph->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemMurphClicked));
 
 	gtkMenuitemSquare->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemSquareClicked));
 	gtkMenuitemHexagon->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemHexagonClicked));
@@ -50,6 +71,20 @@ MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>
 	gtkDA->signal_motion_notify_event().connect(sigc::mem_fun(*this, &MainWindow::OnGameAreaMouseMotion));
 }
 
+void MainWindow::UpdateMenuIndicators(){
+	dismiss_menu_toggle_signals = true;
+	gtkMenuitemBeginner->    set_active(game->m_options->getLevelNr() == MinesPerfect::BEGINNER);
+	gtkMenuitemIntermediate->set_active(game->m_options->getLevelNr() == MinesPerfect::INTERMEDIATE);
+	gtkMenuitemExpert->      set_active(game->m_options->getLevelNr() == MinesPerfect::EXPERT);
+	//gtkMenuitemSelfDefined->set_active(game->m_options->getLevelNr() == MinesPerfect::USER_DEFINED);
+	gtkMenuitemOriginal->set_active(game->m_options->getModus() == MinesPerfect::ORIGINAL);
+	gtkMenuitemLucky->   set_active(game->m_options->getModus() == MinesPerfect::LUCKY);
+	gtkMenuitemImmune->  set_active(game->m_options->getModus() == MinesPerfect::IMMUNE);
+	gtkMenuitemHint->    set_active(game->m_options->getModus() == MinesPerfect::HINTS);
+	gtkMenuitemStartup-> set_active(game->m_options->getModus() == MinesPerfect::STARTUP);
+	gtkMenuitemMurph->   set_active(game->m_options->getMurphysLaw());
+	dismiss_menu_toggle_signals = false;
+}
 void MainWindow::OnMenuitemExitClicked(){
 	Gtk::Main::quit();
 }
@@ -131,31 +166,124 @@ bool MainWindow::OnGameAreaMouseMotion(GdkEventMotion* ev){
 }
 
 
+void MainWindow::OnMenuitemNewClicked(){
+	game->newGame();
+	game->show();
+}
+void MainWindow::OnMenuitemOpenClicked(){
+  Gtk::FileChooserDialog dialog("Choose a file to open", Gtk::FILE_CHOOSER_ACTION_OPEN);
+  dialog.set_transient_for(*this);
+
+	auto filter = Gtk::FileFilter::create();
+	filter->add_pattern("*.log");
+	filter->set_name(".log files");
+	dialog.add_filter(filter);
+
+  dialog.add_button("_Cancel", Gtk::RESPONSE_CANCEL);
+  dialog.add_button("Select", Gtk::RESPONSE_OK);
+
+  int result = dialog.run();
+	std::string file = dialog.get_filename();
+	switch(result)
+  {
+    case(Gtk::RESPONSE_OK):
+			game->load(file.c_str());
+			std::cout << "Game loaded" << std::endl;
+      break;
+    case(Gtk::RESPONSE_CANCEL):
+      break;
+  }
+	UpdateMenuIndicators();
+	game->show();
+}
+void MainWindow::OnMenuitemSaveClicked(){
+  Gtk::FileChooserDialog dialog("Choose a save file", Gtk::FILE_CHOOSER_ACTION_SAVE);
+  dialog.set_transient_for(*this);
+
+	auto filter = Gtk::FileFilter::create();
+	filter->add_pattern("*.log");
+	filter->set_name(".log files");
+	dialog.add_filter(filter);
+
+  dialog.add_button("_Cancel", Gtk::RESPONSE_CANCEL);
+  dialog.add_button("Select", Gtk::RESPONSE_OK);
+
+  int result = dialog.run();
+	std::string file = dialog.get_filename();
+	switch(result)
+  {
+    case(Gtk::RESPONSE_OK):
+			if(file.length() < 5 || file.substr(file.length() - 4) != ".log") file += ".log";
+			game->save(file.c_str());
+      break;
+    case(Gtk::RESPONSE_CANCEL):
+      break;
+  }
+	game->show();
+}
+void MainWindow::OnMenuitemOriginalClicked(){
+	if(dismiss_menu_toggle_signals) return;
+  game->changeModus (MinesPerfect::ORIGINAL);
+	game->show();
+}
+void MainWindow::OnMenuitemLuckyClicked(){
+	if(dismiss_menu_toggle_signals) return;
+  game->changeModus (MinesPerfect::LUCKY);
+	game->show();
+}
+void MainWindow::OnMenuitemHintClicked(){
+	if(dismiss_menu_toggle_signals) return;
+  game->changeModus (MinesPerfect::HINTS);
+	game->show();
+}
+void MainWindow::OnMenuitemImmuneClicked(){
+	if(dismiss_menu_toggle_signals) return;
+  game->changeModus (MinesPerfect::IMMUNE);
+	game->show();
+}
+void MainWindow::OnMenuitemStartupClicked(){
+	if(dismiss_menu_toggle_signals) return;
+  game->changeModus (MinesPerfect::STARTUP);
+	game->show();
+}
+void MainWindow::OnMenuitemMurphClicked(){
+	if(dismiss_menu_toggle_signals) return;
+  game->setMurphysLaw (gtkMenuitemMurph->get_active());
+	game->show();
+}
+
 void MainWindow::OnMenuitemBeginnerClicked(){
+	if(dismiss_menu_toggle_signals) return;
   game->changeLevel (MinesPerfect::BEGINNER);
 	game->show();
 }
 void MainWindow::OnMenuitemIntermediateClicked(){
+	if(dismiss_menu_toggle_signals) return;
   game->changeLevel (MinesPerfect::INTERMEDIATE);
 	game->show();
 }
 void MainWindow::OnMenuitemExpertClicked(){
+	if(dismiss_menu_toggle_signals) return;
   game->changeLevel (MinesPerfect::EXPERT);
 	game->show();
 }
 void MainWindow::OnMenuitemSquareClicked(){
+	if(dismiss_menu_toggle_signals) return;
   game->changeBoard (0);
 	game->show();
 }
 void MainWindow::OnMenuitemTriangleClicked(){
+	if(dismiss_menu_toggle_signals) return;
   game->changeBoard (2);
 	game->show();
 }
 void MainWindow::OnMenuitemHexagonClicked(){
+	if(dismiss_menu_toggle_signals) return;
   game->changeBoard (1);
 	game->show();
 }
 void MainWindow::OnMenuitem3DgridClicked(){
+	if(dismiss_menu_toggle_signals) return;
   game->changeBoard (3);
 	game->show();
 }

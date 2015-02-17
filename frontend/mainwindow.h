@@ -34,22 +34,32 @@ public:
 
 	void RedrawGameArea();
 	void RedrawGameArea(int x, int y, int w, int h);
+
+	void UpdateMenuIndicators();
 private:
 	Glib::RefPtr<Gtk::Builder> builder;
 
 	Gtk::DrawingArea* gtkDA;
 	Cairo::RefPtr<Cairo::ImageSurface> crBackBufferSurface;
 
+	Gtk::MenuItem*    gtkMenuitemNew;
+	Gtk::MenuItem*    gtkMenuitemOpen;
+	Gtk::MenuItem*    gtkMenuitemSave;
 	Gtk::MenuItem*    gtkMenuitemExit;
-	Gtk::MenuItem*    gtkMenuitemBeginner;
-	Gtk::MenuItem*    gtkMenuitemIntermediate;
-	Gtk::MenuItem*    gtkMenuitemExpert;
-	Gtk::MenuItem*    gtkMenuitemSquare;
-	Gtk::MenuItem*    gtkMenuitemHexagon;
-	Gtk::MenuItem*    gtkMenuitemTriangle;
-	Gtk::MenuItem*    gtkMenuitem3Dgrid;
+	Gtk::RadioMenuItem*    gtkMenuitemOriginal;
+	Gtk::RadioMenuItem*    gtkMenuitemHint;
+	Gtk::RadioMenuItem*    gtkMenuitemLucky;
+	Gtk::RadioMenuItem*    gtkMenuitemImmune;
+	Gtk::RadioMenuItem*    gtkMenuitemStartup;
+	Gtk::CheckMenuItem*    gtkMenuitemMurph;
+	Gtk::RadioMenuItem*    gtkMenuitemBeginner;
+	Gtk::RadioMenuItem*    gtkMenuitemIntermediate;
+	Gtk::RadioMenuItem*    gtkMenuitemExpert;
+	Gtk::RadioMenuItem*    gtkMenuitemSquare;
+	Gtk::RadioMenuItem*    gtkMenuitemHexagon;
+	Gtk::RadioMenuItem*    gtkMenuitemTriangle;
+	Gtk::RadioMenuItem*    gtkMenuitem3Dgrid;
 
-	void OnMenuitemExitClicked();
 	bool OnGameAreaDraw(const Cairo::RefPtr<Cairo::Context>& cr);
 	bool OnGameAreaMousePress(GdkEventButton*);
 	bool OnGameAreaMouseRelase(GdkEventButton*);
@@ -58,6 +68,7 @@ private:
 	bool LMB_down = false;
 	bool RMB_down = false;
 
+	bool dismiss_menu_toggle_signals = false;
 	void OnMenuitemBeginnerClicked();
 	void OnMenuitemIntermediateClicked();
 	void OnMenuitemExpertClicked();
@@ -65,6 +76,16 @@ private:
 	void OnMenuitemTriangleClicked();
 	void OnMenuitemHexagonClicked();
 	void OnMenuitem3DgridClicked();
+	void OnMenuitemNewClicked();
+	void OnMenuitemOpenClicked();
+	void OnMenuitemSaveClicked();
+	void OnMenuitemExitClicked();
+	void OnMenuitemOriginalClicked();
+	void OnMenuitemHintClicked();
+	void OnMenuitemLuckyClicked();
+	void OnMenuitemImmuneClicked();
+	void OnMenuitemStartupClicked();
+	void OnMenuitemMurphClicked();
 
 };
 
