@@ -47,6 +47,14 @@ MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>
 	builder->get_widget("menuitemSolveAll1",gtkMenuitemSolveAll1);
 	builder->get_widget("menuitemSolveAll2",gtkMenuitemSolveAll2);
 	builder->get_widget("menuitemSolveAll3",gtkMenuitemSolveAll3);
+	builder->get_widget("menuitemSolveAuto0",gtkMenuitemSolveAuto0);
+	builder->get_widget("menuitemSolveAuto1",gtkMenuitemSolveAuto1);
+	builder->get_widget("menuitemSolveAuto2",gtkMenuitemSolveAuto2);
+	builder->get_widget("menuitemSolveAuto3",gtkMenuitemSolveAuto3);
+	builder->get_widget("menuitemMaxStage",gtkMenuitemMaxStage);
+	builder->get_widget("menuitemMaxStage1",gtkMenuitemMaxStage1);
+	builder->get_widget("menuitemMaxStage2",gtkMenuitemMaxStage2);
+	builder->get_widget("menuitemMaxStage3",gtkMenuitemMaxStage3);
 	builder->get_widget("menuitemShowMines",gtkMenuitemShowMines);
 	builder->get_widget("menuitemUndo",gtkMenuitemUndo);
 	builder->get_widget("menuitemRedo",gtkMenuitemRedo);
@@ -80,6 +88,13 @@ MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>
 	gtkMenuitemSolveAll1->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemSolveAll1Clicked));
 	gtkMenuitemSolveAll2->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemSolveAll2Clicked));
 	gtkMenuitemSolveAll3->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemSolveAll3Clicked));
+	gtkMenuitemSolveAuto0->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemSolveAuto0Clicked));
+	gtkMenuitemSolveAuto1->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemSolveAuto1Clicked));
+	gtkMenuitemSolveAuto2->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemSolveAuto2Clicked));
+	gtkMenuitemSolveAuto3->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemSolveAuto3Clicked));
+	gtkMenuitemMaxStage1->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemMaxStage1Clicked));
+	gtkMenuitemMaxStage2->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemMaxStage2Clicked));
+	gtkMenuitemMaxStage3->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemMaxStage3Clicked));
 	gtkMenuitemShowMines->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemShowMinesClicked));
 
 	gtkMenuitemUndo->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemUndoClicked));
@@ -102,6 +117,7 @@ MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>
 
 void MainWindow::UpdateMenuIndicators(){
 	dismiss_menu_toggle_signals = true;
+
 	gtkMenuitemBeginner->    set_active(game->m_options->getLevelNr() == MinesPerfect::BEGINNER);
 	gtkMenuitemIntermediate->set_active(game->m_options->getLevelNr() == MinesPerfect::INTERMEDIATE);
 	gtkMenuitemExpert->      set_active(game->m_options->getLevelNr() == MinesPerfect::EXPERT);
@@ -112,7 +128,18 @@ void MainWindow::UpdateMenuIndicators(){
 	gtkMenuitemHint->    set_active(game->m_options->getModus() == MinesPerfect::HINTS);
 	gtkMenuitemStartup-> set_active(game->m_options->getModus() == MinesPerfect::STARTUP);
 	gtkMenuitemMurph->   set_active(game->m_options->getMurphysLaw());
+	gtkMenuitemSolveAuto0->set_active(game->m_options->getAutoStage() == 0);
+	gtkMenuitemSolveAuto1->set_active(game->m_options->getAutoStage() == 1);
+	gtkMenuitemSolveAuto2->set_active(game->m_options->getAutoStage() == 2);
+	gtkMenuitemSolveAuto3->set_active(game->m_options->getAutoStage() == 3);
+	gtkMenuitemMaxStage1-> set_active(game->m_options->getMaxStage() == 1);
+	gtkMenuitemMaxStage2-> set_active(game->m_options->getMaxStage() == 2);
+	gtkMenuitemMaxStage3-> set_active(game->m_options->getMaxStage() == 3);
 	gtkMenuitemShowMines->   set_active(game->m_options->getShowMines());
+
+	gtkMenuitemLucky->set_sensitive(game->m_options->getMaxStage() == 3);
+	gtkMenuitemMaxStage->set_sensitive(game->m_options->getModus() != MinesPerfect::LUCKY);
+
 	dismiss_menu_toggle_signals = false;
 }
 void MainWindow::OnMenuitemExitClicked(){
@@ -254,26 +281,31 @@ void MainWindow::OnMenuitemSaveClicked(){
 void MainWindow::OnMenuitemOriginalClicked(){
 	if(dismiss_menu_toggle_signals) return;
   game->changeModus (MinesPerfect::ORIGINAL);
+	UpdateMenuIndicators();
 	game->show();
 }
 void MainWindow::OnMenuitemLuckyClicked(){
 	if(dismiss_menu_toggle_signals) return;
   game->changeModus (MinesPerfect::LUCKY);
+	UpdateMenuIndicators();
 	game->show();
 }
 void MainWindow::OnMenuitemHintClicked(){
 	if(dismiss_menu_toggle_signals) return;
   game->changeModus (MinesPerfect::HINTS);
+	UpdateMenuIndicators();
 	game->show();
 }
 void MainWindow::OnMenuitemImmuneClicked(){
 	if(dismiss_menu_toggle_signals) return;
   game->changeModus (MinesPerfect::IMMUNE);
+	UpdateMenuIndicators();
 	game->show();
 }
 void MainWindow::OnMenuitemStartupClicked(){
 	if(dismiss_menu_toggle_signals) return;
   game->changeModus (MinesPerfect::STARTUP);
+	UpdateMenuIndicators();
 	game->show();
 }
 void MainWindow::OnMenuitemMurphClicked(){
@@ -306,7 +338,44 @@ void MainWindow::OnMenuitemSolveAll3Clicked(){
 	game->solveAll(3);
 	game->show();
 }
-
+void MainWindow::OnMenuitemSolveAuto0Clicked(){
+	if(dismiss_menu_toggle_signals) return;
+	game->changeSolveAuto(0);
+	game->show();
+}
+void MainWindow::OnMenuitemSolveAuto1Clicked(){
+	if(dismiss_menu_toggle_signals) return;
+	game->changeSolveAuto(1);
+	game->show();
+}
+void MainWindow::OnMenuitemSolveAuto2Clicked(){
+	if(dismiss_menu_toggle_signals) return;
+	game->changeSolveAuto(2);
+	game->show();
+}
+void MainWindow::OnMenuitemSolveAuto3Clicked(){
+	if(dismiss_menu_toggle_signals) return;
+	game->changeSolveAuto(3);
+	game->show();
+}
+void MainWindow::OnMenuitemMaxStage1Clicked(){
+	if(dismiss_menu_toggle_signals) return;
+	game->changeMaxStage(1);
+	UpdateMenuIndicators();
+	game->show();
+}
+void MainWindow::OnMenuitemMaxStage2Clicked(){
+	if(dismiss_menu_toggle_signals) return;
+	game->changeMaxStage(2);
+	UpdateMenuIndicators();
+	game->show();
+}
+void MainWindow::OnMenuitemMaxStage3Clicked(){
+	if(dismiss_menu_toggle_signals) return;
+	game->changeMaxStage(3);
+	UpdateMenuIndicators();
+	game->show();
+}
 void MainWindow::OnMenuitemBeginnerClicked(){
 	if(dismiss_menu_toggle_signals) return;
   game->changeLevel (MinesPerfect::BEGINNER);

@@ -66,6 +66,14 @@ private:
 	Gtk::MenuItem*    gtkMenuitemSolveAll1;
 	Gtk::MenuItem*    gtkMenuitemSolveAll2;
 	Gtk::MenuItem*    gtkMenuitemSolveAll3;
+	Gtk::RadioMenuItem*    gtkMenuitemSolveAuto0;
+	Gtk::RadioMenuItem*    gtkMenuitemSolveAuto1;
+	Gtk::RadioMenuItem*    gtkMenuitemSolveAuto2;
+	Gtk::RadioMenuItem*    gtkMenuitemSolveAuto3;
+	Gtk::MenuItem*    gtkMenuitemMaxStage;
+	Gtk::RadioMenuItem*    gtkMenuitemMaxStage1;
+	Gtk::RadioMenuItem*    gtkMenuitemMaxStage2;
+	Gtk::RadioMenuItem*    gtkMenuitemMaxStage3;
 	Gtk::CheckMenuItem*    gtkMenuitemShowMines;
 	Gtk::MenuItem*    gtkMenuitemUndo;
 	Gtk::MenuItem*    gtkMenuitemRedo;
@@ -107,6 +115,13 @@ private:
 	void OnMenuitemSolveAll1Clicked();
 	void OnMenuitemSolveAll2Clicked();
 	void OnMenuitemSolveAll3Clicked();
+	void OnMenuitemSolveAuto0Clicked();
+	void OnMenuitemSolveAuto1Clicked();
+	void OnMenuitemSolveAuto2Clicked();
+	void OnMenuitemSolveAuto3Clicked();
+	void OnMenuitemMaxStage1Clicked();
+	void OnMenuitemMaxStage2Clicked();
+	void OnMenuitemMaxStage3Clicked();
 	void OnMenuitemShowMinesClicked();
 	void OnMenuitemUndoClicked();
 	void OnMenuitemRedoClicked();
