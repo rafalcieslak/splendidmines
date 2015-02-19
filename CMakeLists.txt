@@ -36,4 +36,5 @@ add_custom_command(
 	TARGET splendidmines POST_BUILD
 	COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/frontend/splendidmines.glade" "${CMAKE_CURRENT_BINARY_DIR}/splendidmines.glade"
 	COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/frontend/selfdefined.glade" "${CMAKE_CURRENT_BINARY_DIR}/selfdefined.glade"
+	COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/textures" "${CMAKE_CURRENT_BINARY_DIR}/textures"
 )

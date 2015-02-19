@@ -63,7 +63,7 @@ public:
 };
 
 API::Bitmap* MinesPerfect::API::CreateBitmap (const string& kind, const string& spec){
-	std::string path = "../textures/" + kind + "/" + spec + ".png";
+	std::string path = "textures/" + kind + "/" + spec + ".png";
 	try{
 		BitmapImplementation* bi = new BitmapImplementation(path);
 		return bi;

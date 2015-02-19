@@ -506,7 +506,7 @@ Copyright (C) 1995-2003 Christian Czepluch</property>
     <property name="website">https://github.com/rafalcieslak/splendidmines</property>
     <property name="website_label" translatable="yes">github.com/rafalcieslak/splendidmines</property>
     <property name="authors">Rafał Cieslak</property>
-    <property name="logo">../textures/icon.png</property>
+    <property name="logo">textures/icon.png</property>
     <property name="license_type">gpl-3-0</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="aboutdialog-vbox1">
