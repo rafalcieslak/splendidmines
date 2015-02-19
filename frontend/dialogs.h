@@ -40,4 +40,11 @@ public:
 	void OnButtonCancelClicked();
 };
 
+class DialogAbout : public Gtk::Dialog{
+private:
+	DialogAbout() = delete;
+public:
+	static DialogAbout* Create();
+	DialogAbout(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refGlade);
+};
 #endif

@@ -48,11 +48,11 @@ DialogSelfDefined* DialogSelfDefined::Create(MinesPerfect::Level* level){
 	Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create();
   try
   {
-    refBuilder->add_from_file("selfdefined.glade");
+    refBuilder->add_from_file("splendidmines.glade");
   }
   catch(const Glib::Error& ex)
   {
-    std::cerr << "Error creating selfdefined dialog: " << ex.what() << std::endl;
+    std::cerr << "Error using glade file: " << ex.what() << std::endl;
     return nullptr;
   }
 
@@ -72,4 +72,28 @@ DialogSelfDefined* DialogSelfDefined::Create(MinesPerfect::Level* level){
 	}
 
 	return pSelfDefined;
+}
+
+// =============================================================================
+
+DialogAbout::DialogAbout(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refGlade):
+		Gtk::Dialog(cobject)
+{
+}
+
+DialogAbout* DialogAbout::Create(){
+	Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create();
+  try
+  {
+    refBuilder->add_from_file("splendidmines.glade");
+  }
+  catch(const Glib::Error& ex)
+  {
+    std::cerr << "Error using glade file: " << ex.what() << std::endl;
+    return nullptr;
+  }
+
+	DialogAbout* pAbout;
+  refBuilder->get_widget_derived("dialogAbout", pAbout);
+  return pAbout;
 }

@@ -51,6 +51,7 @@ MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>
 	builder->get_widget("menuitemUndo",gtkMenuitemUndo);
 	builder->get_widget("menuitemRedo",gtkMenuitemRedo);
 	builder->get_widget("menuitemUndoAll",gtkMenuitemUndoAll);
+	builder->get_widget("menuitemAbout",gtkMenuitemAbout);
 
 	gtkMenuitemNew->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemNewClicked));
 	gtkMenuitemOpen->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemOpenClicked));
@@ -84,6 +85,8 @@ MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>
 	gtkMenuitemUndo->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemUndoClicked));
 	gtkMenuitemRedo->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemRedoClicked));
 	gtkMenuitemUndoAll->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemUndoAllClicked));
+
+	gtkMenuitemAbout->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemAboutClicked));
 
 	crBackBufferSurface = Cairo::ImageSurface::create(Cairo::Format::FORMAT_ARGB32, 1500, 1500);
 	crBackBufferContext = Cairo::Context::create(crBackBufferSurface);
@@ -327,6 +330,7 @@ void MainWindow::OnMenuitemSelfDefinedClicked(){
   level.nr = MinesPerfect::USER_DEFINED;
 
 	DialogSelfDefined* selfdef = DialogSelfDefined::Create(&level);
+	selfdef->set_transient_for(*this);
 	int result = selfdef->run();
 	switch(result)
   {
@@ -375,7 +379,12 @@ void MainWindow::OnMenuitemRedoClicked(){
   game->redo();
 	game->show();
 }
-
+void MainWindow::OnMenuitemAboutClicked(){
+	DialogAbout* about = DialogAbout::Create();
+	about->set_transient_for(*this);
+	about->run();
+	delete about;
+}
 bool MainWindow::OnWindowDelete(GdkEventAny* event){
 	int x, y;
 	get_position(x,y);

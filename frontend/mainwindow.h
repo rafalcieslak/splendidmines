@@ -70,6 +70,7 @@ private:
 	Gtk::MenuItem*    gtkMenuitemUndo;
 	Gtk::MenuItem*    gtkMenuitemRedo;
 	Gtk::MenuItem*    gtkMenuitemUndoAll;
+	Gtk::MenuItem*    gtkMenuitemAbout;
 
 	bool OnWindowDelete(GdkEventAny* event);
 
@@ -110,6 +111,7 @@ private:
 	void OnMenuitemUndoClicked();
 	void OnMenuitemRedoClicked();
 	void OnMenuitemUndoAllClicked();
+	void OnMenuitemAboutClicked();
 };
 
 #endif
