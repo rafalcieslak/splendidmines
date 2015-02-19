@@ -16,6 +16,7 @@
     */
 
 #include "mainwindow.h"
+#include "dialogs.h"
 #include <iostream>
 
 MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refGlade):
@@ -26,6 +27,7 @@ MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>
 	builder->get_widget("menuitemOpen",gtkMenuitemOpen);
 	builder->get_widget("menuitemSave",gtkMenuitemSave);
 	builder->get_widget("menuitemExit",gtkMenuitemExit);
+	builder->get_widget("menuitemBestTimes",gtkMenuitemBestTimes);
 	builder->get_widget("menuitemOriginal",gtkMenuitemOriginal);
 	builder->get_widget("menuitemHint",gtkMenuitemHint);
 	builder->get_widget("menuitemLucky",gtkMenuitemLucky);
@@ -35,6 +37,7 @@ MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>
 	builder->get_widget("menuitemBeginner",gtkMenuitemBeginner);
 	builder->get_widget("menuitemIntermediate",gtkMenuitemIntermediate);
 	builder->get_widget("menuitemExpert",gtkMenuitemExpert);
+	builder->get_widget("menuitemSelfDefined",gtkMenuitemSelfDefined);
 	builder->get_widget("menuitemSquare",gtkMenuitemSquare);
 	builder->get_widget("menuitemHexagon",gtkMenuitemHexagon);
 	builder->get_widget("menuitemTriangle",gtkMenuitemTriangle);
@@ -52,10 +55,12 @@ MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>
 	gtkMenuitemNew->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemNewClicked));
 	gtkMenuitemOpen->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemOpenClicked));
 	gtkMenuitemSave->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemSaveClicked));
+	gtkMenuitemBestTimes->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemBestTimesClicked));
 	gtkMenuitemExit->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemExitClicked));
 	gtkMenuitemBeginner->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemBeginnerClicked));
 	gtkMenuitemIntermediate->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemIntermediateClicked));
 	gtkMenuitemExpert->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemExpertClicked));
+	gtkMenuitemSelfDefined->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemSelfDefinedClicked));
 
 	gtkMenuitemOriginal->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemOriginalClicked));
 	gtkMenuitemLucky->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::OnMenuitemLuckyClicked));
@@ -97,14 +102,14 @@ void MainWindow::UpdateMenuIndicators(){
 	gtkMenuitemBeginner->    set_active(game->m_options->getLevelNr() == MinesPerfect::BEGINNER);
 	gtkMenuitemIntermediate->set_active(game->m_options->getLevelNr() == MinesPerfect::INTERMEDIATE);
 	gtkMenuitemExpert->      set_active(game->m_options->getLevelNr() == MinesPerfect::EXPERT);
-	//gtkMenuitemSelfDefined->set_active(game->m_options->getLevelNr() == MinesPerfect::USER_DEFINED);
+	gtkMenuitemSelfDefined->set_active(game->m_options->getLevelNr() == MinesPerfect::USER_DEFINED);
 	gtkMenuitemOriginal->set_active(game->m_options->getModus() == MinesPerfect::ORIGINAL);
 	gtkMenuitemLucky->   set_active(game->m_options->getModus() == MinesPerfect::LUCKY);
 	gtkMenuitemImmune->  set_active(game->m_options->getModus() == MinesPerfect::IMMUNE);
 	gtkMenuitemHint->    set_active(game->m_options->getModus() == MinesPerfect::HINTS);
 	gtkMenuitemStartup-> set_active(game->m_options->getModus() == MinesPerfect::STARTUP);
 	gtkMenuitemMurph->   set_active(game->m_options->getMurphysLaw());
-	gtkMenuitemMurph->   set_active(game->m_options->getShowMines());
+	gtkMenuitemShowMines->   set_active(game->m_options->getShowMines());
 	dismiss_menu_toggle_signals = false;
 }
 void MainWindow::OnMenuitemExitClicked(){
@@ -313,6 +318,30 @@ void MainWindow::OnMenuitemExpertClicked(){
 	if(dismiss_menu_toggle_signals) return;
   game->changeLevel (MinesPerfect::EXPERT);
 	game->show();
+}
+void MainWindow::OnMenuitemSelfDefinedClicked(){
+	if(dismiss_menu_toggle_signals) return;
+	if(!gtkMenuitemSelfDefined->get_active()) return;
+
+  MinesPerfect::Level level = game->m_options->getLevel();
+  level.nr = MinesPerfect::USER_DEFINED;
+
+	DialogSelfDefined* selfdef = DialogSelfDefined::Create(&level);
+	int result = selfdef->run();
+	switch(result)
+  {
+    case(Gtk::RESPONSE_OK):
+			game->changeLevel(level);
+    case(Gtk::RESPONSE_CANCEL):
+      break;
+  }
+	delete selfdef;
+
+	game->show();
+}
+void MainWindow::OnMenuitemBestTimesClicked(){
+
+	// TODO
 }
 void MainWindow::OnMenuitemSquareClicked(){
 	if(dismiss_menu_toggle_signals) return;

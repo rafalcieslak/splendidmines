@@ -169,6 +169,20 @@
                       </object>
                     </child>
                     <child>
+                      <object class="GtkMenuItem" id="menuitemBestTimes">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Best_Times</property>
+                        <property name="use_underline">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSeparatorMenuItem" id="separatormenuitem5">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkMenuItem" id="menuitemExit">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>

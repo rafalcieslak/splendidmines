@@ -45,6 +45,7 @@ private:
 	Gtk::MenuItem*    gtkMenuitemNew;
 	Gtk::MenuItem*    gtkMenuitemOpen;
 	Gtk::MenuItem*    gtkMenuitemSave;
+	Gtk::MenuItem*    gtkMenuitemBestTimes;
 	Gtk::MenuItem*    gtkMenuitemExit;
 	Gtk::RadioMenuItem*    gtkMenuitemOriginal;
 	Gtk::RadioMenuItem*    gtkMenuitemHint;
@@ -55,6 +56,7 @@ private:
 	Gtk::RadioMenuItem*    gtkMenuitemBeginner;
 	Gtk::RadioMenuItem*    gtkMenuitemIntermediate;
 	Gtk::RadioMenuItem*    gtkMenuitemExpert;
+  Gtk::RadioMenuItem*    gtkMenuitemSelfDefined;
 	Gtk::RadioMenuItem*    gtkMenuitemSquare;
 	Gtk::RadioMenuItem*    gtkMenuitemHexagon;
 	Gtk::RadioMenuItem*    gtkMenuitemTriangle;
@@ -83,6 +85,7 @@ private:
 	void OnMenuitemBeginnerClicked();
 	void OnMenuitemIntermediateClicked();
 	void OnMenuitemExpertClicked();
+	void OnMenuitemSelfDefinedClicked();
 	void OnMenuitemSquareClicked();
 	void OnMenuitemTriangleClicked();
 	void OnMenuitemHexagonClicked();
@@ -91,6 +94,7 @@ private:
 	void OnMenuitemOpenClicked();
 	void OnMenuitemSaveClicked();
 	void OnMenuitemExitClicked();
+	void OnMenuitemBestTimesClicked();
 	void OnMenuitemOriginalClicked();
 	void OnMenuitemHintClicked();
 	void OnMenuitemLuckyClicked();
