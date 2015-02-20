@@ -292,7 +292,7 @@ void MainWindow::DisplayNewRecordDialog(SplendidMines::Options* options, int num
   else
     level_name = "None";
 	std::stringstream ss;
-	ss << std::fixed << std::setprecision(3) << num_msec/1000.0 << " ms";
+	ss << std::setprecision(5) << num_msec/1000.0 << " ms";
 	std::string time;
 	ss >> time;
 	DialogRecord* dialog = DialogRecord::Create(options->getBoardName(), level_name, time, userlist);
