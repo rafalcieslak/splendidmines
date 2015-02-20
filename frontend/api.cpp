@@ -93,6 +93,8 @@ public:
   virtual clock_t start(){
 		timer.start();
 		running = true;
+		if(timeout_connection.connected()) timeout_connection.disconnect();
+		timeout_connection = Glib::signal_timeout().connect(sigc::mem_fun(*this,&TimerImplementation::Timeout),1000);
 	}
   virtual void stop(){
 		timer.stop();
@@ -101,7 +103,17 @@ public:
   virtual void reset(){
 		timer.reset();
 	}
-	// TODO: notify?
+  virtual void setNotifyCallback(std::function<void(int)> f){
+		notify_callback = f;
+	}
+private:
+	std::function<void(int)> notify_callback;
+	sigc::connection timeout_connection;
+	bool Timeout(){
+		int secs = int(timer.elapsed() + 0.5);
+		notify_callback(secs);
+		return running;
+	}
 private:
 	Glib::Timer timer;
 	bool running = false;

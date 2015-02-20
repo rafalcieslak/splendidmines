@@ -23,6 +23,7 @@
 
 #include <vector>   // fuer Color ?!
 #include <string>
+#include <functional>
 #include <time.h>
 
 using namespace std;
@@ -87,6 +88,7 @@ public:
   virtual clock_t  start()           = 0;
   virtual void     stop()            = 0;
   virtual void     reset()           = 0;
+  virtual void     setNotifyCallback(std::function<void(int)>) = 0;
   virtual ~Timer() { }
 };
 

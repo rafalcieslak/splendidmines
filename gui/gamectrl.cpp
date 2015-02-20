@@ -426,6 +426,7 @@ GameCtrl::GameCtrl(Options* options) : Ctrl(0)
   m_board   = 0;
   m_options = options;
 
+  m_timer->setNotifyCallback( [this](int n){this->showTime(n);} );
 //  m_left_mousebutton_down  = false;
 
   m_rand_seq = Glob::rand_int.getStart() - 1; // -1 wird spaeter wieder draufaddiert
