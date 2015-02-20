@@ -18,6 +18,7 @@
 #include "mainwindow.h"
 #include "dialogs.h"
 #include <iostream>
+#include <iomanip>
 
 MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refGlade):
 		Gtk::Window(cobject), builder(refGlade)
@@ -278,6 +279,33 @@ void MainWindow::OnMenuitemSaveClicked(){
   }
 	game->show();
 }
+void MainWindow::DisplayNewRecordDialog(MinesPerfect::Options* options, int num_msec, bool certified_board){
+	std::vector<std::string> userlist;
+	options->getUserlist(userlist);
+	std::string level_name;
+  if (options->getLevelNr() == MinesPerfect::BEGINNER)
+    level_name = "Beginner";
+  else if (options->getLevelNr() == MinesPerfect::INTERMEDIATE)
+    level_name = "Intermediate";
+  else if (options->getLevelNr() == MinesPerfect::EXPERT)
+    level_name = "Expert";
+  else
+    level_name = "None";
+	std::stringstream ss;
+	ss << std::fixed << std::setprecision(3) << num_msec/1000.0 << " ms";
+	std::string time;
+	ss >> time;
+	DialogRecord* dialog = DialogRecord::Create(options->getBoardName(), level_name, time, userlist);
+	dialog->set_transient_for(*this);
+	int n = dialog->run();
+	if(n == Gtk::RESPONSE_OK){
+		std::string username = dialog->GetUsername();
+    options->setRecord (options->getLevelNr(), username.c_str(), num_msec, certified_board);
+		// TODO show best times dialog!
+	}
+	delete dialog;
+}
+
 void MainWindow::OnMenuitemOriginalClicked(){
 	if(dismiss_menu_toggle_signals) return;
   game->changeModus (MinesPerfect::ORIGINAL);

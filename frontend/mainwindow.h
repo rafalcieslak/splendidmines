@@ -36,6 +36,8 @@ public:
 	void RedrawGameArea(int x, int y, int w, int h);
 
 	void UpdateMenuIndicators();
+
+	void DisplayNewRecordDialog(MinesPerfect::Options* op, int num_msec, bool certified_board);
 private:
 	Glib::RefPtr<Gtk::Builder> builder;
 

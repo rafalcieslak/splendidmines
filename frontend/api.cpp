@@ -111,7 +111,7 @@ private:
 	sigc::connection timeout_connection;
 	bool Timeout(){
 		int secs = int(timer.elapsed() + 0.5);
-		notify_callback(secs);
+		if(running) notify_callback(secs);
 		return running;
 	}
 private:
@@ -185,7 +185,7 @@ void MinesPerfect::API::WinDrawBevel  (const Rect& rect, int thickness, bool rai
 }
 
 void MinesPerfect::API::DlgNewRecord (Options* options, int num_msecs, bool certified_board){
-	throw UnimplementedAPIException();
+	pMainWindow->DisplayNewRecordDialog(options,num_msecs,certified_board);
 }
 void MinesPerfect::API::FindFiles (vector<string>& files, const string& pattern){
 #ifdef __linux__

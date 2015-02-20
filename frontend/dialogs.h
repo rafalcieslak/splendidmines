@@ -18,6 +18,7 @@
 #ifndef DIALOGS_H
 #define DIALOGS_H
 
+#include <vector>
 #include <gtkmm.h>
 #include "../gui/gamectrl.h"
 
@@ -47,4 +48,21 @@ public:
 	static DialogAbout* Create();
 	DialogAbout(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refGlade);
 };
+
+class DialogRecord : public Gtk::Dialog{
+private:
+	DialogRecord() = delete;
+	Gtk::Button* gtkButtonOK;
+	Gtk::Button* gtkButtonCancel;
+	Gtk::Label* gtkLabelBoard;
+	Gtk::Label* gtkLabelLevel;
+	Gtk::Label* gtkLabelTime;
+	Gtk::ComboBoxText* gtkComboUsers;
+	Glib::RefPtr<Gtk::Builder> builder;
+public:
+	static DialogRecord* Create(std::string board_name, std::string level_name, std::string time, std::vector<std::string> usernames);
+	DialogRecord(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refGlade);
+	std::string GetUsername() const;
+};
+
 #endif

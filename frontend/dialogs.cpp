@@ -97,3 +97,49 @@ DialogAbout* DialogAbout::Create(){
   refBuilder->get_widget_derived("dialogAbout", pAbout);
   return pAbout;
 }
+
+
+// =============================================================================
+
+DialogRecord::DialogRecord(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refGlade):
+		Gtk::Dialog(cobject), builder(refGlade)
+{
+		builder->get_widget("buttonRecordOK",gtkButtonOK);
+		builder->get_widget("buttonRecordCancel",gtkButtonCancel);
+		builder->get_widget("labelBoard",gtkLabelBoard);
+		builder->get_widget("labelLevel",gtkLabelLevel);
+		builder->get_widget("labelTime",gtkLabelTime);
+		builder->get_widget("comboUsers",gtkComboUsers);
+		gtkButtonOK->signal_clicked().connect([this](){this->response(Gtk::RESPONSE_OK);});
+		gtkComboUsers->get_entry()->signal_activate().connect([this](){this->response(Gtk::RESPONSE_OK);});
+		gtkButtonCancel->signal_clicked().connect([this](){this->response(Gtk::RESPONSE_CANCEL);});
+}
+
+std::string DialogRecord::GetUsername() const{
+	return gtkComboUsers->get_active_text();
+}
+
+DialogRecord* DialogRecord::Create(std::string board_name, std::string level_name, std::string time, std::vector<std::string> usernames){
+	Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create();
+  try
+  {
+    refBuilder->add_from_file("splendidmines.glade");
+  }
+  catch(const Glib::Error& ex)
+  {
+    std::cerr << "Error using glade file: " << ex.what() << std::endl;
+    return nullptr;
+  }
+
+	DialogRecord* pRecord;
+  refBuilder->get_widget_derived("dialogRecord", pRecord);
+  if(pRecord){
+		pRecord->gtkLabelBoard->set_text(board_name);
+		pRecord->gtkLabelLevel->set_text(level_name);
+		pRecord->gtkLabelTime->set_text(time);
+		for(std::string& u : usernames){
+			pRecord->gtkComboUsers->append(u);
+		}
+	}
+	return pRecord;
+}
