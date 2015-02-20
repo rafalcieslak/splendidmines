@@ -23,10 +23,17 @@ file(GLOB CORE_SOURCES core/*.cpp)
 file(GLOB GUI_SOURCES gui/*.cpp)
 file(GLOB FRONTEND_SOURCES frontend/*.cpp)
 
+if(WIN32)
+add_executable(splendidmines WIN32
+    ${CORE_SOURCES}
+    ${GUI_SOURCES}
+    ${FRONTEND_SOURCES} )
+else(WIN32)
 add_executable(splendidmines
     ${CORE_SOURCES}
     ${GUI_SOURCES}
     ${FRONTEND_SOURCES} )
+endif(WIN32)
 
 link_directories(${GTKMM_LIBRARY_DIRS})
 
