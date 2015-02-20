@@ -35,7 +35,7 @@
 #include "vargroup.h"
 
 
-namespace MinesPerfect {
+namespace SplendidMines {
 
 //------------------------------------------------------------------------------
 enum Found      { FOUND_MOVE, FOUND_NO_MOVE, FOUND_CONTRA };
@@ -161,6 +161,6 @@ public:
 };
 
 
-} // namespace MinesPerfect
+} // namespace SplendidMines
 
 #endif

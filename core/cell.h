@@ -27,7 +27,7 @@
 #include <vector>
 
 
-namespace MinesPerfect {
+namespace SplendidMines {
 
 
 //------------------------------------------------------------------------------
@@ -123,6 +123,6 @@ typedef CellNrs::const_iterator  CellNrCIter;
 };
 
 
-} // namespace MinesPerfect
+} // namespace SplendidMines
 
 #endif

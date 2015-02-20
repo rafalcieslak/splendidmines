@@ -23,7 +23,7 @@
 #include "../core/api.h"
 #include "lcdctrl.h"
 
-using namespace MinesPerfect;
+using namespace SplendidMines;
 
 
 API::Bitmap* LcdCtrl::s_minus_bmp      = 0;

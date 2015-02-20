@@ -38,7 +38,7 @@ using namespace std;
 #include "perfana.h"
 #include "api.h"
 
-using namespace MinesPerfect;
+using namespace SplendidMines;
 
 
 static vector<int>       call_stack;

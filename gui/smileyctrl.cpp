@@ -22,7 +22,7 @@
 #include "gamectrl.h"
 
 using namespace std;
-using namespace MinesPerfect;
+using namespace SplendidMines;
 
 API::Bitmap* SmileyCtrl::s_smiley_happy_bmp    = 0;
 API::Bitmap* SmileyCtrl::s_smiley_1eye_bmp     = 0;

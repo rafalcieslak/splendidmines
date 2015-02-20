@@ -26,7 +26,7 @@
 #include "bitmapctrl.h"
 //#include "cellctrl.h"
 
-namespace MinesPerfect {
+namespace SplendidMines {
 
 class GameCtrl;
 
@@ -93,6 +93,6 @@ class BoardCtrl : public Ctrl
 //    void changeLevel     (const Level& lvl);
 };
 
-} // namespace MinesPerfect
+} // namespace SplendidMines
 
 #endif

@@ -32,7 +32,7 @@ using namespace std;
 #include "options.h"
 #include "api.h"
 
-namespace MinesPerfect
+namespace SplendidMines
 {
   namespace Glob
   {
@@ -41,12 +41,12 @@ namespace MinesPerfect
   }
 }
 
-using namespace MinesPerfect;
+using namespace SplendidMines;
 
-string TITLE = "MinesPerfect";
+string TITLE = "SplendidMines";
 string USERS = "users";
 
-const char INI_FNAME[] = "mineperf.ini";
+const char INI_FNAME[] = "splendidmines.cfg";
 
 
 //******************************************************************************

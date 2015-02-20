@@ -29,7 +29,7 @@
 
 using namespace std;
 
-namespace MinesPerfect {
+namespace SplendidMines {
 
 
 //------------------------------------------------------------------------------
@@ -220,6 +220,6 @@ public:
 };
 
 
-} // namespace MinesPerfect
+} // namespace SplendidMines
 
 #endif

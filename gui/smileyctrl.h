@@ -24,7 +24,7 @@
 #include "../core/api.h"
 #include "buttonctrl.h"
 
-namespace MinesPerfect {
+namespace SplendidMines {
 
 class GameCtrl;
 
@@ -56,6 +56,6 @@ class SmileyCtrl : public ButtonCtrl
 };
 
 
-} // namespace MinesPerfect
+} // namespace SplendidMines
 
 #endif

@@ -28,7 +28,7 @@
 #include "utils.h"
 #include "options.h"
 
-namespace MinesPerfect {
+namespace SplendidMines {
 
 
 /* Probleme mit Konstanten in Headerfiles
@@ -186,6 +186,6 @@ class Logbook
 };
 
 
-} // namespace MinesPerfect
+} // namespace SplendidMines
 
 #endif

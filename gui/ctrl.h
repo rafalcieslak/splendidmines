@@ -27,7 +27,7 @@
 
 class Ctrl;
 
-using namespace MinesPerfect;
+using namespace SplendidMines;
 
 //******************************************************************************
 class Ctrl

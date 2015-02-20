@@ -31,7 +31,7 @@ using namespace std;
 #include "../core/utils.h"
 
 
-namespace MinesPerfect {
+namespace SplendidMines {
 
 class Options;
 
@@ -106,6 +106,6 @@ void FindFiles (vector<string>& files, const string& pattern);
 bool FileExist (const string& fname);
 
 } // namespace API
-} // namespace MinesPerfect
+} // namespace SplendidMines
 
 #endif

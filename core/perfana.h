@@ -26,7 +26,7 @@
 
 using namespace std;
 
-namespace MinesPerfect {
+namespace SplendidMines {
 
 #ifndef LINUX
   typedef unsigned long  ulong;
@@ -84,6 +84,6 @@ public:
 };
 
 
-} // namespace MinesPerfect
+} // namespace SplendidMines
 
 #endif

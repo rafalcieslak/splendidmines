@@ -23,7 +23,7 @@
 #include "boardctrl.h"
 #include "gamectrl.h"
 
-using namespace MinesPerfect;
+using namespace SplendidMines;
 
 
 const CellNr  INVALID_CELL = -1;

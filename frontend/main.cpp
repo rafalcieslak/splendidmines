@@ -54,12 +54,12 @@ int main(int argc, char** argv){
     return 1;
   }
 
-  MinesPerfect::Options* options = new MinesPerfect::Options();
+  SplendidMines::Options* options = new SplendidMines::Options();
 
   refBuilder->get_widget_derived("gtkWindowMain", pMainWindow);
   if(pMainWindow)
   {
-    pMainWindow->game = new MinesPerfect::GameCtrl(options);
+    pMainWindow->game = new SplendidMines::GameCtrl(options);
     pMainWindow->move(options->getXPos(), options->getYPos());
     pMainWindow->UpdateMenuIndicators();
     pMainWindow->game->show();

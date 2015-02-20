@@ -24,7 +24,7 @@
 #include "../core/api.h"
 #include "ctrl.h"
 
-namespace MinesPerfect {
+namespace SplendidMines {
 
 
 //******************************************************************************
@@ -47,6 +47,6 @@ class LcdCtrl : public Ctrl // 3 - Ziffrige Lcd anzeige
 };
 
 
-} // namespace MinesPerfect
+} // namespace SplendidMines
 
 #endif

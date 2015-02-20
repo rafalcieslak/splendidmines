@@ -33,7 +33,7 @@
 #include "bevelctrl.h"
 
 
-namespace MinesPerfect {
+namespace SplendidMines {
 
 //******************************************************************************
 class GameCtrl : public Ctrl
@@ -123,6 +123,6 @@ class GameCtrl : public Ctrl
 };
 
 
-} // namespace MinesPerfect
+} // namespace SplendidMines
 
 #endif

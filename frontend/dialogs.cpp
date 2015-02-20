@@ -44,7 +44,7 @@ void DialogSelfDefined::OnButtonOKClicked(){
 }
 
 
-DialogSelfDefined* DialogSelfDefined::Create(MinesPerfect::Level* level){
+DialogSelfDefined* DialogSelfDefined::Create(SplendidMines::Level* level){
 	Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create();
   try
   {

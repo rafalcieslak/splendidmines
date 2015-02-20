@@ -25,7 +25,7 @@
 class DialogSelfDefined : public Gtk::Dialog{
 private:
 	DialogSelfDefined() = delete;
-	MinesPerfect::Level* level;
+	SplendidMines::Level* level;
 	Glib::RefPtr<Gtk::Builder> builder;
 	Gtk::Button* gtkButtonOK;
 	Gtk::Button* gtkButtonCancel;
@@ -35,7 +35,7 @@ private:
 	Gtk::Label* gtkLabelPages;
 	Gtk::Entry* gtkEntryMines;
 public:
-	static DialogSelfDefined* Create(MinesPerfect::Level* level);
+	static DialogSelfDefined* Create(SplendidMines::Level* level);
 	DialogSelfDefined(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refGlade);
 	void OnButtonOKClicked();
 	void OnButtonCancelClicked();

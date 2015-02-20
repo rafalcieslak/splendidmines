@@ -35,7 +35,7 @@ using namespace std;
 #include "api.h"  // Exception
 #include "../globaldefs.h"
 
-namespace MinesPerfect // wegen Compiler
+namespace SplendidMines // wegen Compiler
 {
   namespace Glob
   {
@@ -44,7 +44,7 @@ namespace MinesPerfect // wegen Compiler
   }
 }
 
-using namespace MinesPerfect;
+using namespace SplendidMines;
 
 const char*  AUTO_LOG_FNAME = "auto.log";
 

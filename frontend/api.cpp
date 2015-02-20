@@ -28,7 +28,7 @@
 
 #include <gdkmm/pixbuf.h>
 
-using namespace MinesPerfect;
+using namespace SplendidMines;
 
 extern MainWindow* pMainWindow;
 
@@ -62,7 +62,7 @@ public:
 
 };
 
-API::Bitmap* MinesPerfect::API::CreateBitmap (const string& kind, const string& spec){
+API::Bitmap* SplendidMines::API::CreateBitmap (const string& kind, const string& spec){
 	std::string path = "textures/" + kind + "/" + spec + ".png";
 	try{
 		BitmapImplementation* bi = new BitmapImplementation(path);
@@ -72,7 +72,7 @@ API::Bitmap* MinesPerfect::API::CreateBitmap (const string& kind, const string& 
 		throw;
 	}
 }
-API::Bitmap* MinesPerfect::API::CreateBitmap (const API::Bitmap* from, const Rect& rect){
+API::Bitmap* SplendidMines::API::CreateBitmap (const API::Bitmap* from, const Rect& rect){
 	const BitmapImplementation* bi = dynamic_cast<const BitmapImplementation*>(from);
 	BitmapImplementation* new_bi = new BitmapImplementation();
 	new_bi->pixbuf = Gdk::Pixbuf::create( bi->pixbuf->get_colorspace(), true, bi->pixbuf->get_bits_per_sample(), rect.getWidth(), rect.getHeight());
@@ -119,7 +119,7 @@ private:
 	bool running = false;
 };
 
-API::Timer* MinesPerfect::API::CreateTimer(){
+API::Timer* SplendidMines::API::CreateTimer(){
 	return new TimerImplementation();
 }
 
@@ -136,14 +136,14 @@ public:
 	}
 };
 
-API::Sound* MinesPerfect::API::CreateSound (const std::string& name){
+API::Sound* SplendidMines::API::CreateSound (const std::string& name){
 	return new EmptySoundImplementation(name);
 }
 
-void MinesPerfect::API::WinSetSize    (const Point& sz){
+void SplendidMines::API::WinSetSize    (const Point& sz){
 	pMainWindow->SetGameAreaSize(sz.x,sz.y);
 }
-void MinesPerfect::API::WinDrawBitmap (const API::Bitmap* bmp, const Point& p){
+void SplendidMines::API::WinDrawBitmap (const API::Bitmap* bmp, const Point& p){
 	if(bmp == nullptr) return;
 	const BitmapImplementation* bi = dynamic_cast<const BitmapImplementation*>(bmp);
 	//std::cerr << "Will draw tex " << bi->name << " at " << p.x << " " << p.y;
@@ -155,7 +155,7 @@ void MinesPerfect::API::WinDrawBitmap (const API::Bitmap* bmp, const Point& p){
 	cr->restore();
 	pMainWindow->RedrawGameArea();//p.x,p.y, bi->pixbuf->get_width(), bi->pixbuf->get_height());
 }
-void MinesPerfect::API::WinDrawBevel  (const Rect& rect, int thickness, bool raised){
+void SplendidMines::API::WinDrawBevel  (const Rect& rect, int thickness, bool raised){
 	double th = thickness/2.0;
   if (rect.getWidth()  < 2 * thickness || rect.getHeight() < 2 * thickness)
     return;
@@ -184,10 +184,10 @@ void MinesPerfect::API::WinDrawBevel  (const Rect& rect, int thickness, bool rai
 	pMainWindow->RedrawGameArea();
 }
 
-void MinesPerfect::API::DlgNewRecord (Options* options, int num_msecs, bool certified_board){
+void SplendidMines::API::DlgNewRecord (Options* options, int num_msecs, bool certified_board){
 	pMainWindow->DisplayNewRecordDialog(options,num_msecs,certified_board);
 }
-void MinesPerfect::API::FindFiles (vector<string>& files, const string& pattern){
+void SplendidMines::API::FindFiles (vector<string>& files, const string& pattern){
 #ifdef __linux__
     glob_t glob_res;
     glob(pattern.c_str(),GLOB_TILDE,NULL,&glob_res);
@@ -198,7 +198,7 @@ void MinesPerfect::API::FindFiles (vector<string>& files, const string& pattern)
 	throw UnimplementedAPIException();
 #endif
 }
-bool MinesPerfect::API::FileExist (const string& fname){
+bool SplendidMines::API::FileExist (const string& fname){
     std::ifstream infile(fname.c_str());
     return infile.good();
 }

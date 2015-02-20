@@ -41,7 +41,7 @@ using namespace std;
 
 
 // Konstanten zur Fehlersuche
-namespace MinesPerfect
+namespace SplendidMines
 {
   namespace Glob
   {
@@ -50,7 +50,7 @@ namespace MinesPerfect
   }
 }
 
-using namespace MinesPerfect;
+using namespace SplendidMines;
 
 
 const int  inv_num         = 9999;

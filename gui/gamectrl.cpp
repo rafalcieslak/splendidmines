@@ -39,7 +39,7 @@ using namespace std;
 // 3: VisualC++ 6.0, WX 2.40, Windows (V. 140)
 
 // Konstanten zur Fehlersuche
-namespace MinesPerfect
+namespace SplendidMines
 {
   namespace Glob
   {
@@ -57,7 +57,7 @@ namespace MinesPerfect
 }
 
 
-using namespace MinesPerfect;
+using namespace SplendidMines;
 
 //******************************************************************************
 void GameCtrl::initSound()

@@ -34,7 +34,7 @@ using namespace std;
 #include "perfana.h"
 
 // Konstanten zur Fehlersuche
-namespace MinesPerfect
+namespace SplendidMines
 {
   namespace Glob
   {
@@ -43,7 +43,7 @@ namespace MinesPerfect
   }
 }
 
-using namespace MinesPerfect;
+using namespace SplendidMines;
 
 template<class T> T* delete_ptr (T* p) { delete p; return 0; }
 

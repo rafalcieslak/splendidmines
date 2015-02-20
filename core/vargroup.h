@@ -34,7 +34,7 @@
 #include "options.h"
 
 
-namespace MinesPerfect {
+namespace SplendidMines {
 
 
 #define  for_all_vars(xi,x) \
@@ -292,6 +292,6 @@ private:
   bool        solve       (SolSums* permit_sums = 0);
 };
 
-} // namespace MinesPerfect
+} // namespace SplendidMines
 
 #endif

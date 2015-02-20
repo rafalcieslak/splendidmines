@@ -28,7 +28,7 @@
 
 #include "utils.h"
 
-using namespace MinesPerfect;
+using namespace SplendidMines;
 using namespace std;
 
 //******************************************************************************
@@ -72,7 +72,7 @@ bool Rect::contains (const Point& p)
 }
 
 //******************************************************************************
-std::string MinesPerfect::Lower (const std::string& s)
+std::string SplendidMines::Lower (const std::string& s)
 //------------------------------------------------------------------------------
 {
   string s2 = s;

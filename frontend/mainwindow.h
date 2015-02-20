@@ -29,7 +29,7 @@ public:
 	MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refGlade);
 	void SetGameAreaSize(int width, int height);
 
-	MinesPerfect::GameCtrl* game;
+	SplendidMines::GameCtrl* game;
 	Cairo::RefPtr<Cairo::Context> crBackBufferContext;
 
 	void RedrawGameArea();
@@ -37,7 +37,7 @@ public:
 
 	void UpdateMenuIndicators();
 
-	void DisplayNewRecordDialog(MinesPerfect::Options* op, int num_msec, bool certified_board);
+	void DisplayNewRecordDialog(SplendidMines::Options* op, int num_msec, bool certified_board);
 private:
 	Glib::RefPtr<Gtk::Builder> builder;
 
@@ -88,7 +88,7 @@ private:
 	bool OnGameAreaMousePress(GdkEventButton*);
 	bool OnGameAreaMouseRelase(GdkEventButton*);
 	bool OnGameAreaMouseMotion(GdkEventMotion*);
-	MinesPerfect::Point prev_mouse_position = MinesPerfect::Point(-1,-1);
+	SplendidMines::Point prev_mouse_position = SplendidMines::Point(-1,-1);
 	bool LMB_down = false;
 	bool RMB_down = false;
 

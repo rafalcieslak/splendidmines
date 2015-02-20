@@ -28,9 +28,9 @@
 #undef ASSERT
 #define ASSERT(cond) \
   if (!(cond)) \
-    throw MinesPerfect::AssertException(__FILE__,__LINE__)
+    throw SplendidMines::AssertException(__FILE__,__LINE__)
 
-namespace MinesPerfect {
+namespace SplendidMines {
 
 //struct Bevel;
 
@@ -151,6 +151,6 @@ public:
 //******************************************************************************
 std::string Lower (const std::string& s);
 
-} // namespace MinesPerfect
+} // namespace SplendidMines
 
 #endif

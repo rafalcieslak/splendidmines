@@ -32,7 +32,7 @@ using namespace std;
 #include "logbook.h"
 #include "api.h"
 
-namespace MinesPerfect {
+namespace SplendidMines {
 
 //------------------------------------------------------------------------------
 enum BOARD_STATE { BEFORE = 0, PLAY, WON, LOST };

@@ -119,15 +119,15 @@ MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>
 void MainWindow::UpdateMenuIndicators(){
 	dismiss_menu_toggle_signals = true;
 
-	gtkMenuitemBeginner->    set_active(game->m_options->getLevelNr() == MinesPerfect::BEGINNER);
-	gtkMenuitemIntermediate->set_active(game->m_options->getLevelNr() == MinesPerfect::INTERMEDIATE);
-	gtkMenuitemExpert->      set_active(game->m_options->getLevelNr() == MinesPerfect::EXPERT);
-	gtkMenuitemSelfDefined->set_active(game->m_options->getLevelNr() == MinesPerfect::USER_DEFINED);
-	gtkMenuitemOriginal->set_active(game->m_options->getModus() == MinesPerfect::ORIGINAL);
-	gtkMenuitemLucky->   set_active(game->m_options->getModus() == MinesPerfect::LUCKY);
-	gtkMenuitemImmune->  set_active(game->m_options->getModus() == MinesPerfect::IMMUNE);
-	gtkMenuitemHint->    set_active(game->m_options->getModus() == MinesPerfect::HINTS);
-	gtkMenuitemStartup-> set_active(game->m_options->getModus() == MinesPerfect::STARTUP);
+	gtkMenuitemBeginner->    set_active(game->m_options->getLevelNr() == SplendidMines::BEGINNER);
+	gtkMenuitemIntermediate->set_active(game->m_options->getLevelNr() == SplendidMines::INTERMEDIATE);
+	gtkMenuitemExpert->      set_active(game->m_options->getLevelNr() == SplendidMines::EXPERT);
+	gtkMenuitemSelfDefined->set_active(game->m_options->getLevelNr() == SplendidMines::USER_DEFINED);
+	gtkMenuitemOriginal->set_active(game->m_options->getModus() == SplendidMines::ORIGINAL);
+	gtkMenuitemLucky->   set_active(game->m_options->getModus() == SplendidMines::LUCKY);
+	gtkMenuitemImmune->  set_active(game->m_options->getModus() == SplendidMines::IMMUNE);
+	gtkMenuitemHint->    set_active(game->m_options->getModus() == SplendidMines::HINTS);
+	gtkMenuitemStartup-> set_active(game->m_options->getModus() == SplendidMines::STARTUP);
 	gtkMenuitemMurph->   set_active(game->m_options->getMurphysLaw());
 	gtkMenuitemSolveAuto0->set_active(game->m_options->getAutoStage() == 0);
 	gtkMenuitemSolveAuto1->set_active(game->m_options->getAutoStage() == 1);
@@ -139,7 +139,7 @@ void MainWindow::UpdateMenuIndicators(){
 	gtkMenuitemShowMines->   set_active(game->m_options->getShowMines());
 
 	gtkMenuitemLucky->set_sensitive(game->m_options->getMaxStage() == 3);
-	gtkMenuitemMaxStage->set_sensitive(game->m_options->getModus() != MinesPerfect::LUCKY);
+	gtkMenuitemMaxStage->set_sensitive(game->m_options->getModus() != SplendidMines::LUCKY);
 
 	dismiss_menu_toggle_signals = false;
 }
@@ -174,15 +174,15 @@ bool MainWindow::OnGameAreaDraw(const Cairo::RefPtr<Cairo::Context>& cr){
 
 
 bool MainWindow::OnGameAreaMousePress(GdkEventButton* ev){
-	MinesPerfect::API::MouseEvent mp_event;
+	SplendidMines::API::MouseEvent mp_event;
 	if(ev->button == 1){
-		mp_event.m_type = MinesPerfect::API::MouseEvent::LEFT_DOWN;
+		mp_event.m_type = SplendidMines::API::MouseEvent::LEFT_DOWN;
 		LMB_down = true;
 	}else if(ev->button == 3){
-		mp_event.m_type = MinesPerfect::API::MouseEvent::RIGHT_DOWN;
+		mp_event.m_type = SplendidMines::API::MouseEvent::RIGHT_DOWN;
 		RMB_down = true;
 	}else return false;
-	mp_event.m_pos = MinesPerfect::Point(ev->x, ev->y);
+	mp_event.m_pos = SplendidMines::Point(ev->x, ev->y);
 	mp_event.m_prev_pos = prev_mouse_position;
   mp_event.m_left_is_down  = LMB_down;
   mp_event.m_right_is_down = RMB_down;
@@ -193,15 +193,15 @@ bool MainWindow::OnGameAreaMousePress(GdkEventButton* ev){
 	return true;
 }
 bool MainWindow::OnGameAreaMouseRelase(GdkEventButton* ev){
-	MinesPerfect::API::MouseEvent mp_event;
+	SplendidMines::API::MouseEvent mp_event;
 	if(ev->button == 1){
-		mp_event.m_type = MinesPerfect::API::MouseEvent::LEFT_UP;
+		mp_event.m_type = SplendidMines::API::MouseEvent::LEFT_UP;
 		LMB_down = false;
 	}else if(ev->button == 3){
-		mp_event.m_type = MinesPerfect::API::MouseEvent::RIGHT_UP;
+		mp_event.m_type = SplendidMines::API::MouseEvent::RIGHT_UP;
 		RMB_down = false;
 	}else return false;
-	mp_event.m_pos = MinesPerfect::Point(ev->x, ev->y);
+	mp_event.m_pos = SplendidMines::Point(ev->x, ev->y);
 	mp_event.m_prev_pos = prev_mouse_position;
   mp_event.m_left_is_down  = LMB_down;
   mp_event.m_right_is_down = RMB_down;
@@ -211,9 +211,9 @@ bool MainWindow::OnGameAreaMouseRelase(GdkEventButton* ev){
 	return true;
 }
 bool MainWindow::OnGameAreaMouseMotion(GdkEventMotion* ev){
-	MinesPerfect::API::MouseEvent mp_event;
-	mp_event.m_type = MinesPerfect::API::MouseEvent::MOVE;
-	mp_event.m_pos = MinesPerfect::Point(ev->x, ev->y);
+	SplendidMines::API::MouseEvent mp_event;
+	mp_event.m_type = SplendidMines::API::MouseEvent::MOVE;
+	mp_event.m_pos = SplendidMines::Point(ev->x, ev->y);
 	mp_event.m_prev_pos = prev_mouse_position;
   mp_event.m_left_is_down  = LMB_down;
   mp_event.m_right_is_down = RMB_down;
@@ -279,15 +279,15 @@ void MainWindow::OnMenuitemSaveClicked(){
   }
 	game->show();
 }
-void MainWindow::DisplayNewRecordDialog(MinesPerfect::Options* options, int num_msec, bool certified_board){
+void MainWindow::DisplayNewRecordDialog(SplendidMines::Options* options, int num_msec, bool certified_board){
 	std::vector<std::string> userlist;
 	options->getUserlist(userlist);
 	std::string level_name;
-  if (options->getLevelNr() == MinesPerfect::BEGINNER)
+  if (options->getLevelNr() == SplendidMines::BEGINNER)
     level_name = "Beginner";
-  else if (options->getLevelNr() == MinesPerfect::INTERMEDIATE)
+  else if (options->getLevelNr() == SplendidMines::INTERMEDIATE)
     level_name = "Intermediate";
-  else if (options->getLevelNr() == MinesPerfect::EXPERT)
+  else if (options->getLevelNr() == SplendidMines::EXPERT)
     level_name = "Expert";
   else
     level_name = "None";
@@ -308,31 +308,31 @@ void MainWindow::DisplayNewRecordDialog(MinesPerfect::Options* options, int num_
 
 void MainWindow::OnMenuitemOriginalClicked(){
 	if(dismiss_menu_toggle_signals) return;
-  game->changeModus (MinesPerfect::ORIGINAL);
+  game->changeModus (SplendidMines::ORIGINAL);
 	UpdateMenuIndicators();
 	game->show();
 }
 void MainWindow::OnMenuitemLuckyClicked(){
 	if(dismiss_menu_toggle_signals) return;
-  game->changeModus (MinesPerfect::LUCKY);
+  game->changeModus (SplendidMines::LUCKY);
 	UpdateMenuIndicators();
 	game->show();
 }
 void MainWindow::OnMenuitemHintClicked(){
 	if(dismiss_menu_toggle_signals) return;
-  game->changeModus (MinesPerfect::HINTS);
+  game->changeModus (SplendidMines::HINTS);
 	UpdateMenuIndicators();
 	game->show();
 }
 void MainWindow::OnMenuitemImmuneClicked(){
 	if(dismiss_menu_toggle_signals) return;
-  game->changeModus (MinesPerfect::IMMUNE);
+  game->changeModus (SplendidMines::IMMUNE);
 	UpdateMenuIndicators();
 	game->show();
 }
 void MainWindow::OnMenuitemStartupClicked(){
 	if(dismiss_menu_toggle_signals) return;
-  game->changeModus (MinesPerfect::STARTUP);
+  game->changeModus (SplendidMines::STARTUP);
 	UpdateMenuIndicators();
 	game->show();
 }
@@ -406,25 +406,25 @@ void MainWindow::OnMenuitemMaxStage3Clicked(){
 }
 void MainWindow::OnMenuitemBeginnerClicked(){
 	if(dismiss_menu_toggle_signals) return;
-  game->changeLevel (MinesPerfect::BEGINNER);
+  game->changeLevel (SplendidMines::BEGINNER);
 	game->show();
 }
 void MainWindow::OnMenuitemIntermediateClicked(){
 	if(dismiss_menu_toggle_signals) return;
-  game->changeLevel (MinesPerfect::INTERMEDIATE);
+  game->changeLevel (SplendidMines::INTERMEDIATE);
 	game->show();
 }
 void MainWindow::OnMenuitemExpertClicked(){
 	if(dismiss_menu_toggle_signals) return;
-  game->changeLevel (MinesPerfect::EXPERT);
+  game->changeLevel (SplendidMines::EXPERT);
 	game->show();
 }
 void MainWindow::OnMenuitemSelfDefinedClicked(){
 	if(dismiss_menu_toggle_signals) return;
 	if(!gtkMenuitemSelfDefined->get_active()) return;
 
-  MinesPerfect::Level level = game->m_options->getLevel();
-  level.nr = MinesPerfect::USER_DEFINED;
+  SplendidMines::Level level = game->m_options->getLevel();
+  level.nr = SplendidMines::USER_DEFINED;
 
 	DialogSelfDefined* selfdef = DialogSelfDefined::Create(&level);
 	selfdef->set_transient_for(*this);
