@@ -38,6 +38,8 @@ public:
 	void UpdateMenuIndicators();
 
 	void DisplayNewRecordDialog(SplendidMines::Options* op, int num_msec, bool certified_board);
+	
+	void quit();
 private:
 	Glib::RefPtr<Gtk::Builder> builder;
 

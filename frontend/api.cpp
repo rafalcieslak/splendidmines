@@ -24,6 +24,8 @@
 
 #ifdef __linux__
 	#include <glob.h>
+#elif _WIN32
+	#include <windows.h>
 #endif
 
 #include <gdkmm/pixbuf.h>
@@ -194,6 +196,16 @@ void SplendidMines::API::FindFiles (vector<string>& files, const string& pattern
     for(unsigned int i=0; i < glob_res.gl_pathc; i++)
         files.push_back(string(glob_res.gl_pathv[i]));
     globfree(&glob_res);
+#elif _WIN32
+  WIN32_FIND_DATA FindFileData;
+  HANDLE hFind = FindFirstFile(pattern.c_str(), &FindFileData);
+  if(hFind != INVALID_HANDLE_VALUE){
+	int v = 1;
+	while(v){
+		files.push_back(FindFileData.cFileName);
+		v = FindNextFile(hFind, &FindFileData);
+	}
+  }
 #else
 	throw UnimplementedAPIException();
 #endif

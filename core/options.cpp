@@ -26,6 +26,9 @@
   #include <strings.h>
   #define stricmp strcasecmp
 #endif
+#ifdef _WIN32
+  #include <cstring>
+#endif
 
 using namespace std;
 
