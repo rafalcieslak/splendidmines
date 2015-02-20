@@ -761,35 +761,26 @@ void GameCtrl::load (const string& fname)
 //------------------------------------------------------------------------------
 {
   // load
-  try
+  if (fname.find(',') == string::npos)
   {
-    if (fname.find(',') == string::npos)
-    {
-      m_logbook->read (fname);
-    }
-    else
-    {
-      string fname2 = fname;
-
-      // Der Dateioeffnendialog fuegt am Anfang noch den
-      // Pfad und am Ende eine Extension an, diese muessen
-      // jetzt wieder entfernt werden
-      string::size_type i = fname2.rfind('\\');
-      if (i != string::npos)
-        fname2 = fname2.substr(i + 1);
-
-      i = fname2.rfind('.');
-      if (i != string::npos)
-        fname2 = fname2.substr(0, i);
-
-      m_logbook->importStr (fname2);
-    }
+    m_logbook->read (fname);
   }
-  catch (LogException &exception)
+  else
   {
-    m_error_sound->play();
-    API::ShowMessageDlg (exception.getText(), "Load-Error");
-    return;
+    string fname2 = fname;
+
+    // Der Dateioeffnendialog fuegt am Anfang noch den
+    // Pfad und am Ende eine Extension an, diese muessen
+    // jetzt wieder entfernt werden
+    string::size_type i = fname2.rfind('\\');
+    if (i != string::npos)
+      fname2 = fname2.substr(i + 1);
+
+    i = fname2.rfind('.');
+    if (i != string::npos)
+      fname2 = fname2.substr(0, i);
+
+    m_logbook->importStr (fname2);
   }
 
   // durchspielen
@@ -800,15 +791,7 @@ void GameCtrl::load (const string& fname)
 void GameCtrl::save (const string& fname)
 //------------------------------------------------------------------------------
 {
-  try
-  {
-    m_logbook->write (fname);
-  }
-  catch (LogException &exception)
-  {
-    m_error_sound->play();
-    API::ShowMessageDlg (exception.getText(), "Save-Error");
-  }
+  m_logbook->write (fname);
 }
 
 //******************************************************************************

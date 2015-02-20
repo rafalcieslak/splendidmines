@@ -111,9 +111,9 @@ API::Timer* MinesPerfect::API::CreateTimer(){
 	return new TimerImplementation();
 }
 
-class SoundImplementation : public API::Sound{
+class EmptySoundImplementation : public API::Sound{
 public:
-	SoundImplementation(const std::string name){
+	EmptySoundImplementation(const std::string name){
 
 	}
 	virtual void play(){
@@ -125,7 +125,7 @@ public:
 };
 
 API::Sound* MinesPerfect::API::CreateSound (const std::string& name){
-	return new SoundImplementation(name);
+	return new EmptySoundImplementation(name);
 }
 
 void MinesPerfect::API::WinSetSize    (const Point& sz){
@@ -189,7 +189,4 @@ void MinesPerfect::API::FindFiles (vector<string>& files, const string& pattern)
 bool MinesPerfect::API::FileExist (const string& fname){
     std::ifstream infile(fname.c_str());
     return infile.good();
-}
-void MinesPerfect::API::ShowMessageDlg (const string& text, const string& title){
-	throw UnimplementedAPIException();
 }

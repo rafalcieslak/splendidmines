@@ -102,7 +102,6 @@ void WinDrawBevel  (const Rect& rect, int thickness, bool raised);
 void DlgNewRecord (Options* options, int num_msecs, bool certified_board);
 void FindFiles (vector<string>& files, const string& pattern);
 bool FileExist (const string& fname);
-void ShowMessageDlg (const string& text, const string& title);
 
 } // namespace API
 } // namespace MinesPerfect
