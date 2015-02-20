@@ -143,9 +143,6 @@ void MainWindow::UpdateMenuIndicators(){
 
 	dismiss_menu_toggle_signals = false;
 }
-void MainWindow::OnMenuitemExitClicked(){
-	Gtk::Main::quit();
-}
 
 void MainWindow::SetGameAreaSize(int width, int height){
 	gtkDA->set_size_request(width,height);
@@ -482,10 +479,17 @@ void MainWindow::OnMenuitemAboutClicked(){
 	about->run();
 	delete about;
 }
-bool MainWindow::OnWindowDelete(GdkEventAny* event){
+void MainWindow::quit(){
 	int x, y;
 	get_position(x,y);
 	game->m_options->setXPos(x);
 	game->m_options->setYPos(y);
-	game->m_options->saveIni();
+	game->m_options->saveIni();	
+	Gtk::Main::quit();
+}
+bool MainWindow::OnWindowDelete(GdkEventAny* event){
+	quit();
+}
+void MainWindow::OnMenuitemExitClicked(){
+	quit();
 }

@@ -197,7 +197,6 @@ void SplendidMines::API::FindFiles (vector<string>& files, const string& pattern
         files.push_back(string(glob_res.gl_pathv[i]));
     globfree(&glob_res);
 #elif _WIN32
-	std::cout << "Finding files" << std::endl;
   WIN32_FIND_DATA FindFileData;
   HANDLE hFind = FindFirstFile(pattern.c_str(), &FindFileData);
   if(hFind != INVALID_HANDLE_VALUE){
