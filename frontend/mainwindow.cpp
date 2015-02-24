@@ -293,6 +293,7 @@ void MainWindow::DisplayNewRecordDialog(SplendidMines::Options* options, int num
 	std::string time;
 	ss >> time;
 	DialogRecord* dialog = DialogRecord::Create(options->getBoardName(), level_name, time, userlist);
+	game->show(); // Not redrawing the game area leads to confusing situations ("I did not yet end the game!")
 	dialog->set_transient_for(*this);
 	int n = dialog->run();
 	if(n == Gtk::RESPONSE_OK){
@@ -484,7 +485,7 @@ void MainWindow::quit(){
 	get_position(x,y);
 	game->m_options->setXPos(x);
 	game->m_options->setYPos(y);
-	game->m_options->saveIni();	
+	game->m_options->saveIni();
 	Gtk::Main::quit();
 }
 bool MainWindow::OnWindowDelete(GdkEventAny* event){
