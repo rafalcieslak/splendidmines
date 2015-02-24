@@ -138,6 +138,11 @@ void MainWindow::UpdateMenuIndicators(){
 	gtkMenuitemMaxStage3-> set_active(game->m_options->getMaxStage() == 3);
 	gtkMenuitemShowMines->   set_active(game->m_options->getShowMines());
 
+	gtkMenuitemSquare->  set_active(game->m_options->getBoardNr() == 0 );
+	gtkMenuitemHexagon-> set_active(game->m_options->getBoardNr() == 1 );
+	gtkMenuitemTriangle->set_active(game->m_options->getBoardNr() == 2 );
+	gtkMenuitem3Dgrid->  set_active(game->m_options->getBoardNr() == 3 );
+
 	gtkMenuitemLucky->set_sensitive(game->m_options->getMaxStage() == 3);
 	gtkMenuitemMaxStage->set_sensitive(game->m_options->getModus() != SplendidMines::LUCKY);
 
